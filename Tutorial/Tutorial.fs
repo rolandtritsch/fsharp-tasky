@@ -411,7 +411,6 @@ module Sequences = begin
 
     /// An infinite sequence which is a random walk
     //  Use yield! to return each element of a subsequence, similar to IEnumerable.SelectMany.
-
     let rec randomWalk x = begin
         seq { 
             yield x
@@ -463,6 +462,7 @@ module RecursiveFunctions = begin
     let sumListTailRecursive xs = sumListTailRecHelper 0 xs
     printfn "SumTailRec(1 .. 100): >%d<" (sumListTailRecursive ([1 .. 100]))
 
+    /// The good old Fibonacci
     let rec fib n = begin
         if (n <= 0) then 0
         elif (n = 1) then 1
@@ -474,30 +474,39 @@ end
 // ---------------------------------------------------------------
 //         Record types
 // ---------------------------------------------------------------
-module RecordTypes =
+module RecordTypes = begin
     // define a record type
-    type ContactCard =
-        { Name     : string
-          Phone    : string
-          Verified : bool }
+    type ContactCard = { 
+        Name: string
+        Phone: string
+        Verified: bool 
+    }
 
-    let contact1 = { Name = "Alf" ; Phone = "(206) 555-0157" ; Verified = false }
+    let contact1 = { 
+        Name = "Alf"
+        Phone = "(206) 555-0157"
+        Verified = false 
+    }
 
     // Create a new record that is a copy of contact1,
     // but has different values for the 'Phone' and 'Verified' fields
-
-    let contact2 = { contact1 with Phone = "(206) 555-0112"; Verified = true }
-
+    let contact2 = { 
+        contact1 with 
+            Phone = "(206) 555-0112"
+            Verified = true 
+    }
 
     /// Converts a 'ContactCard' object to a string
-    let showCard c =
-        c.Name + " Phone: " + c.Phone + (if not c.Verified then " (unverified)" else "")
-
+    let showCard c = begin
+        sprintf "Name: >%s</Phone: >%s</Verified: >%s<" c.Name c.Phone (if c.Verified then "Yes" else "NO")
+    end
+    printfn "Contact1: %s" (showCard contact1)
+    printfn "Contact2: %s" (showCard contact2)
+end
        
 // ---------------------------------------------------------------
 //         Union types
 // ---------------------------------------------------------------
-
 module UnionTypes =
 
     /// Represents the suit of a playing card

@@ -266,7 +266,7 @@ end
 //         Generic classes
 // ---------------------------------------------------------------
 module DefiningGenericClasses = begin
-    type StateTracker<'T>(initialElement: 'T) = // 'T is the type parameter for the class
+    type StateTracker<'T>(initialElement: 'T) = class 
         /// Store the states in an array
         let mutable states = [ initialElement ]
 
@@ -279,14 +279,40 @@ module DefiningGenericClasses = begin
 
         /// Get the latest state
         member this.Current = states.Head
-
+    end
 
     /// An 'int' instance of the state tracker class. Note that the type parameter is inferred.
     let tracker = StateTracker 10
 
-
     // Add a state
     tracker.UpdateState 17
+
+    type Stack<'T>() = class
+        let mutable stack: List<'T> = []
+        member this.Push(e: 'T) = begin
+            stack <- e :: stack
+        end
+        member this.Pop(): 'T = begin
+            let e = stack.Item(0)
+            stack <- stack.Tail
+            e
+        end
+        member this.Top(): 'T = begin
+            stack.Item(0)
+        end
+    end
+    type RPNCalc() = class
+        inherit Stack<int>()
+        member this.Add() = begin
+            base.Push(base.Pop() + base.Pop())
+        end
+    end
+
+    let calc = RPNCalc()
+    calc.Push(1)
+    calc.Push(2)
+    calc.Add()
+    printfn "Top: >%d<" (calc.Top())
 end
 
 // ---------------------------------------------------------------

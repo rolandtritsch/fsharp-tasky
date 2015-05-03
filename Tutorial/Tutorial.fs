@@ -49,8 +49,7 @@
 // ---------------------------------------------------------------
 //         Integers and basic functions
 // ---------------------------------------------------------------
-
-module Integers =
+module Integers = begin
     let sampleInteger = 176
  
     /// Do some arithmetic starting with the first integer
@@ -66,14 +65,14 @@ module Integers =
     // The next line prints a list that includes tuples, using %A for generic printing
     printfn "The table of squares from 0 to 99 is:\n%A" sampleTableOfSquares
     printfn "The table of squares from 0 to 99 is:\n%A" sampleTableOfSquares2
+end
   
-module BasicFunctions =
+module BasicFunctions = begin
     // Use 'let' to define a function that accepts an integer argument and returns an integer.
     let func1 x = x*x + 3            
 
     // Parenthesis are optional for function arguments
     let func1a (x) = x*x + 3            
-
 
     /// Apply the function, naming the function return result using 'let'.
     /// The variable type is inferred from the function return type.
@@ -88,7 +87,6 @@ module BasicFunctions =
 
     printfn "The result of applying the 1st sample function to (7 + 4) is %d" result2
 
-
     let func3 x =
         if x < 100.0 then
             2.0*x*x - x/5.0 + 3.0
@@ -99,14 +97,20 @@ module BasicFunctions =
 
     printfn "The result of applying the 2nd sample function to (6.5 + 4.5) is %f" result3
 
+    // more (partial) functions
+    let add x y = x + y
+
+    let add2 z = add 2 z
+
+    let doubleIt z = add z z
+
+    printfn "add 2 3 -> %d/add2 4 -> %d/doubleIt 4 -> %d" (add 2 3) (add2 4) (doubleIt 4)
+end
 
 // ---------------------------------------------------------------
 //         Booleans
 // ---------------------------------------------------------------
-
-
-module SomeBooleanValues =
-
+module SomeBooleanValues = begin
     let boolean1 = true
 
     let boolean2 = false
@@ -114,14 +118,11 @@ module SomeBooleanValues =
     let boolean3 = not boolean1 && (boolean2 || false)
 
     printfn "The expression 'not boolean1 && (boolean2 || false)' is %A" boolean3
-
+end
  
-
 // ---------------------------------------------------------------
 //         Strings
 // ---------------------------------------------------------------
-
-
 module StringManipulation =
 
     let string1 = "Hello"

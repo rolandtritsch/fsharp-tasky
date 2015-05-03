@@ -429,47 +429,51 @@ end
 // ---------------------------------------------------------------
 //         Recursive functions
 // ---------------------------------------------------------------
-
-
-module RecursiveFunctions  =
-
+module RecursiveFunctions = begin
     /// Compute the factorial of an integer. Use 'let rec' to define a recursive function
-    let rec factorial n =
+    let rec factorial n = begin
         if n = 0 then 1 else n * factorial (n-1)
+    end
+    printfn "fac(10): >%d<" (factorial 10)
  
     /// Computes the greatest common factor of two integers.
-    //  Since all of the recursive calls are tail calls, the compiler will turn the function into a loop,
-    //  which improves performance and reduces memory consumption.
-
-    let rec greatestCommonFactor a b =                      
+    /// Since all of the recursive calls are tail calls, the compiler will turn the function into a loop,
+    /// which improves performance and reduces memory consumption.
+    let rec greatestCommonFactor a b = begin
         if a = 0 then b
         elif a < b then greatestCommonFactor a (b - a)          
         else greatestCommonFactor (a - b) b
-
+    end
+    printfn "gcd(49, 699): >%d<" (greatestCommonFactor 49 699)
 
     /// Computes the sum of a list of integers using recursion.
-    let rec sumList xs =
+    let rec sumList xs = begin
         match xs with
-        | []    -> 0
-        | y::ys -> y + sumList ys
-
+            | [] -> 0
+            | y::ys -> y + sumList ys
+    end
+    printfn "Sum(1 .. 100): >%d<" (sumList ([1 .. 100]))
 
     /// Make the function tail recursive, using a helper function with a result accumulator
-    let rec private sumListTailRecHelper accumulator xs =
+    let rec private sumListTailRecHelper accumulator xs = begin
         match xs with
-        | []    -> accumulator
-        | y::ys -> sumListTailRecHelper (accumulator+y) ys
-
-
+            | [] -> accumulator
+            | y::ys -> sumListTailRecHelper (accumulator+y) ys
+    end
     let sumListTailRecursive xs = sumListTailRecHelper 0 xs
+    printfn "SumTailRec(1 .. 100): >%d<" (sumListTailRecursive ([1 .. 100]))
 
+    let rec fib n = begin
+        if (n <= 0) then 0
+        elif (n = 1) then 1
+        else fib (n-2) + fib (n-1)
+    end
+    printfn "Fib(10): >%d<" (fib 10)
+end
  
-
 // ---------------------------------------------------------------
 //         Record types
 // ---------------------------------------------------------------
-
-
 module RecordTypes =
     // define a record type
     type ContactCard =

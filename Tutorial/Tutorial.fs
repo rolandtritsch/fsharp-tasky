@@ -715,11 +715,8 @@ module ParallelArrayProgramming = begin
 // ---------------------------------------------------------------
 //         Using events
 // ---------------------------------------------------------------
-
-module Events =
-
+module Events = begin
     open System
-
     // Create instance of Event object that consists of subscription point (event.Publish) and event trigger (event.Trigger)
     let simpleEvent = new Event<int>()
 
@@ -732,23 +729,19 @@ module Events =
     // Create instance of Event that follows standard .NET convention: (sender, EventArgs)
     let eventForDelegateType = new Event<EventHandler, EventArgs>()   
 
- 
     // Add handler
     eventForDelegateType.Publish.AddHandler(
-        EventHandler(fun _ _ -> printfn "this is handler was added with Publish.AddHandler"))
+        EventHandler(fun _ _ -> printfn "this is handler was added with Publish.AddHandler")
+    )
 
- 
     // Trigger event (note that sender argument should be set)
     eventForDelegateType.Trigger(null, EventArgs.Empty)
-
-
+end
 
 // ---------------------------------------------------------------
 //         Database access using type providers
 // ---------------------------------------------------------------
-
-module DatabaseAccess =
-
+module DatabaseAccess = begin
     // The easiest way to access a SQL database from F# is to use F# type providers.
     // Add references to System.Data, System.Data.Linq, and FSharp.Data.TypeProviders.dll.
     // You can use Server Explorer to build your ConnectionString.
@@ -770,13 +763,11 @@ module DatabaseAccess =
 
     *)
 
-
     // You can also use SqlEntityConnection instead of SqlDataConnection, which accesses the database using Entity Framework.
 
     ()
-
+end
  
-
 // ---------------------------------------------------------------
 //         OData access using type providers
 // ---------------------------------------------------------------

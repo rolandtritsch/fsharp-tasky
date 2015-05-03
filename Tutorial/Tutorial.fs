@@ -618,45 +618,53 @@ end
 // ---------------------------------------------------------------
 //         Pattern matching
 // ---------------------------------------------------------------
-
-module PatternMatching =
-
+module PatternMatching = begin
     /// A record for a person's first and last name
-
-    type Person =   
-        { First : string
-          Last  : string }
-
+    type Person = { 
+        First: string
+        Last: string 
+    }
 
     /// Define a discriminated union of 3 different kinds of employees
-
     type Employee =
         /// Engineer is just herself
-        | Engineer  of Person
+        | Engineer of Person
         /// Manager has list of reports
-        | Manager   of Person * list<Employee>            
+        | Manager of Person * list<Employee>            
         /// Executive also has an assistant
         | Executive of Person * list<Employee> * Employee 
 
     /// Count everyone underneath the employee in the management hierarchy, including the employee
-    let rec countReports(emp : Employee) =
+    let rec countReports(emp : Employee) = begin
         1 + match emp with
-            | Engineer(id) ->
-                0
-            | Manager(id, reports) ->
-                reports |> List.sumBy countReports
-            | Executive(id, reports, assistant) ->
-                (reports |> List.sumBy countReports) + countReports assistant
+            | Engineer(id) -> 0
+            | Manager(id, reports) -> reports |> List.sumBy countReports
+            | Executive(id, reports, assistant) -> (reports |> List.sumBy countReports) + countReports assistant
+    end
 
     /// Find all managers/executives named "Dave" who do not have any reports
-    let rec findDaveWithOpenPosition(emps : Employee list) =
-        emps
-        |> List.filter(function
-                       | Manager({First = "Dave"}, []) -> true       // [] matches the empty list
-                       | Executive({First = "Dave"}, [], _) -> true
-                       | _ -> false)                                 // '_' is a wildcard pattern that matches anything
-                                                                     // this handles the "or else" case
+    let rec findDaveWithOpenPosition(emps : Employee list) = begin
+        emps |> List.filter(function
+            | Manager({First = "Dave"}, []) -> true       // [] matches the empty list
+            | Executive({First = "Dave"}, [], _) -> true
+            | _ -> false
+        )
+    end
 
+    // let emp = Engineer({First = "First"; Last = "Last"}) 
+    let emps = [
+        for i in 1..10 do 
+            yield Engineer({First = "First_" + i.ToString(); Last = "Last_" + i.ToString()})
+        done
+    ]
+
+    let manager1 = Manager({First = "Roland"; Last = "Tritsch"}, [emps.Head])
+    let manager2 = Manager({First = "Joe"; Last = "Doe"}, emps.Tail)
+    let mgrs = [manager1; manager2]
+    let exec = Executive({First = "Peter"; Last = "Parker"}, mgrs, emps.Head)
+
+    printfn "Num of emps: %d" (countReports exec)
+end
 
 // ---------------------------------------------------------------
 //         Units of measure

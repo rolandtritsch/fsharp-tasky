@@ -771,9 +771,7 @@ end
 // ---------------------------------------------------------------
 //         OData access using type providers
 // ---------------------------------------------------------------
-
-module OData =
-
+module OData = begin
     (*
 
     open System.Data.Services.Client
@@ -798,14 +796,15 @@ module OData =
     *)
 
     ()
-
+end
  
 #if COMPILED
 
-module BoilerPlateForForm =
+module BoilerPlateForForm = begin
     [<System.STAThread>]
     do ()
-//    do System.Windows.Forms.Application.Run()
+    // do System.Windows.Forms.Application.Run()
+end
 
 #endif
 

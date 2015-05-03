@@ -225,26 +225,20 @@ end
 // ---------------------------------------------------------------
 //         Classes
 // ---------------------------------------------------------------
-module DefiningClasses =
+module DefiningClasses = begin
     /// The class's constructor takes two arguments: dx and dy, both of type 'float'.
-    type Vector2D(dx : float, dy : float) =
-
+    type Vector2D(dx : float, dy : float) = class
         /// The length of the vector, computed when the object is constructed
         let length = sqrt (dx*dx + dy*dy)
 
-
         // 'this' specifies a name for the object's self identifier
         // In instance methods, it must appear before the member name.
-
         member this.DX = dx 
-
         member this.DY = dy
-
         member this.Length = length
-
         member this.Scale(k) = Vector2D(k * this.DX, k * this.DY)
+    end
 
-   
     /// An instance of the Vector2D class
     let vector1 = Vector2D(3.0, 4.0)
 
@@ -253,16 +247,26 @@ module DefiningClasses =
 
     printfn "Length of vector1: %f      Length of vector2: %f" vector1.Length vector2.Length
 
- 
+    type Point(x: int, y: int) = class
+      member this.X = x
+      member this.Y = y
+      member this.Add(that: Point) = Point(this.X + that.X, this.Y + that.Y)
+
+      override this.ToString() = sprintf "(%d/%d)" this.X this.Y
+    end
+
+    let evenPoints = [
+        for i in [1..10] do yield Point(i*2, i*2*10)
+    ]
+
+    let sum = evenPoints |> List.map (fun p -> p.Add(Point (1, 1)))
+end
 
 // ---------------------------------------------------------------
 //         Generic classes
 // ---------------------------------------------------------------
-
-module DefiningGenericClasses =
-
+module DefiningGenericClasses = begin
     type StateTracker<'T>(initialElement: 'T) = // 'T is the type parameter for the class
-
         /// Store the states in an array
         let mutable states = [ initialElement ]
 
@@ -270,11 +274,9 @@ module DefiningGenericClasses =
         member this.UpdateState newState =
             states <- newState :: states  // use the '<-' operator to mutate the value
 
-
         /// Get the entire list of historical states
         member this.History = states
 
- 
         /// Get the latest state
         member this.Current = states.Head
 
@@ -285,8 +287,7 @@ module DefiningGenericClasses =
 
     // Add a state
     tracker.UpdateState 17
-
-
+end
 
 // ---------------------------------------------------------------
 //         Implementing interfaces

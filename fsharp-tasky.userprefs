@@ -1,8 +1,8 @@
 ﻿<Properties StartupItem="Android/Android.fsproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.21-platform" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Tutorial/Tutorial.fs">
     <Files>
-      <File FileName="Tutorial/Tutorial.fs" Line="122" Column="2" />
+      <File FileName="Tutorial/Tutorial.fs" Line="279" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

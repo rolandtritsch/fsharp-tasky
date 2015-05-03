@@ -61,13 +61,13 @@ module Integers =
  
     /// A list of all tuples containing all the numbers from 0 to 99 and their squares
     let sampleTableOfSquares = [ for i in 0 .. 99 -> (i, i*i) ]
+    let sampleTableOfSquares2 = [ for i in sampleNumbers -> (i, i*i) ]
  
     // The next line prints a list that includes tuples, using %A for generic printing
     printfn "The table of squares from 0 to 99 is:\n%A" sampleTableOfSquares
- 
- 
+    printfn "The table of squares from 0 to 99 is:\n%A" sampleTableOfSquares2
+  
 module BasicFunctions =
-
     // Use 'let' to define a function that accepts an integer argument and returns an integer.
     let func1 x = x*x + 3            
 

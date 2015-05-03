@@ -507,70 +507,77 @@ end
 // ---------------------------------------------------------------
 //         Union types
 // ---------------------------------------------------------------
-module UnionTypes =
-
+module UnionTypes = begin
     /// Represents the suit of a playing card
     type Suit =
         | Hearts
         | Clubs
         | Diamonds
         | Spades
+        with 
+            static member GetAllSuites() = begin 
+                [Hearts; Clubs; Diamonds; Spades]
+            end
+
+            static member SuitString (c: Card) = begin
+                match c.Suit with
+                    | Clubs -> "clubs"
+                    | Diamonds -> "diamonds"
+                    | Spades -> "spades"
+                    | Hearts -> "hearts"
+            end
+        end
 
     /// Represents the rank of a playing card
-    type Rank =
+    and Rank =
         /// Represents the rank of cards 2 .. 10
         | Value of int
         | Ace
         | King
         | Queen
         | Jack
+        with
+            static member GetAllRanks() = [ 
+                yield Ace
+                for i in 2 .. 10 do yield Value i
+                yield Jack
+                yield Queen
+                yield King 
+            ]
 
-        static member GetAllRanks() =
-            [ yield Ace
-              for i in 2 .. 10 do yield Value i
-              yield Jack
-              yield Queen
-              yield King ]
+            static member RankString(c: Card) = begin
+                match c.Rank with
+                    | Ace -> "Ace"
+                    | King -> "King"
+                    | Queen -> "Queen"
+                    | Jack -> "Jack"
+                    | Value n -> string n
+            end
+        end
 
-    type Card =  { Suit: Suit; Rank: Rank }
+    and Card =  { 
+        Suit: Suit
+        Rank: Rank 
+    }
 
     /// Returns a list representing all the cards in the deck
+    let fullDeck = [
+        for suit in Suit.GetAllSuites() do
+            for rank in Rank.GetAllRanks() do 
+                yield { Suit=suit; Rank=rank } 
+            done
+        done
+    ]
+    printfn "FullDeck: %A" fullDeck
 
-    let fullDeck =
-        [ for suit in [ Hearts; Diamonds; Clubs; Spades] do
-              for rank in Rank.GetAllRanks() do
-                  yield { Suit=suit; Rank=rank } ]
-
-
-    /// Converts a 'Card' object to a string
-    let showCard c =
-        let rankString =
-            match c.Rank with
-            | Ace -> "Ace"
-            | King -> "King"
-            | Queen -> "Queen"
-            | Jack -> "Jack"
-            | Value n -> string n
-
-        let suitString =
-            match c.Suit with
-            | Clubs -> "clubs"
-            | Diamonds -> "diamonds"
-            | Spades -> "spades"
-            | Hearts -> "hearts"
-
-        rankString  + " of " + suitString
-
-    let printAllCards() =
-        for card in fullDeck do
-            printfn "%s" (showCard card)
-
- 
+    for card in fullDeck do
+        printfn "%s of %s" (Rank.RankString(card)) (Suit.SuitString(card))
+    done
+end
 
 // ---------------------------------------------------------------
 //         Option types
 // ---------------------------------------------------------------
-
 module OptionTypes =
     /// Option values are any kind of value tagged with either 'Some' or 'None'.
     /// They are used extensively in F# code to represent the cases where many other

@@ -87,7 +87,7 @@ module BasicFunctions = begin
 
     printfn "The result of applying the 1st sample function to (7 + 4) is %d" result2
 
-    let func3 x =
+    let func3 x = 
         if x < 100.0 then
             2.0*x*x - x/5.0 + 3.0
         else
@@ -123,14 +123,12 @@ end
 // ---------------------------------------------------------------
 //         Strings
 // ---------------------------------------------------------------
-module StringManipulation =
-
+module StringManipulation = begin
     let string1 = "Hello"
 
-    let string2  = "world"
+    let string2  = "World"
 
     /// Use @ to create a verbatim string literal
-
     let string3 = @"c:\Program Files\"
 
     /// Using a triple-quote string literal
@@ -145,7 +143,16 @@ module StringManipulation =
 
     printfn "%s" substring
 
+    printfn "Head: >%s<" helloWorld.[0..0]
 
+    printfn "Tail: >%s<" helloWorld.[1..]
+
+    printfn "Upper: >%s<" (helloWorld.ToUpper())
+
+    // printfn "Upper: >%s<" (String.uppercase helloWorld)
+
+    printfn "Reverse: >%s<" (new string(Array.rev (helloWorld.ToCharArray())))
+end
 
 // ---------------------------------------------------------------
 //         Tuples (ordered sets of values)

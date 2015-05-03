@@ -1,6 +1,10 @@
-﻿<Properties>
-  <MonoDevelop.Ide.Workspace PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone4s.8.3" />
-  <MonoDevelop.Ide.Workbench />
+﻿<Properties StartupItem="Android/Android.fsproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.21-platform" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Core/Task.fs">
+    <Files>
+      <File FileName="Core/Task.fs" Line="11" Column="22" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -1,16 +1,10 @@
-using System;
+namespace Tasky.Core
 
-namespace Tasky.Core {
-	/// <summary>
-	/// Task business object
-	/// </summary>
-	public class Task {
-		public Task() {
-		}
+open System
 
-        public int ID { get; set; }
-		public string Name { get; set; }
-		public string Notes { get; set; }
-		public bool Done { get; set; }	// TODO: add this field to the user-interface
-	}
-}
+type Task(id: int, name: string, note: string, ddone: bool) = class
+    member this.Id = id
+    member this.Name = name
+    member this.Note = note
+    member this.Done = ddone
+end

@@ -1,139 +1,126 @@
-using System;
-using System.IO;
-using System.Data;
-using System.Collections.Generic;
+namespace Tasky.Core
 
-using Mono.Data.Sqlite;
+open System
+open System.IO
+open System.Data
 
-namespace Tasky.Core {
-	/// <summary>
-	/// TaskDatabase uses ADO.NET to create the [Items] table and create,read,update,delete data
-	/// </summary>
-	public class TaskDatabase : IDisposable {
-		static object locker = new object();
-		private SqliteConnection connection = null;
+open Mono.Data.Sqlite
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Tasky.DL.TaskDatabase"/> TaskDatabase. 
-		/// if the database doesn't exist, it will create the database and the table.
-		/// </summary>
-		public TaskDatabase(string dbPath) {
-			connection = new SqliteConnection("Data Source=" + dbPath);
-			connection.Open();
+type TaskDatabase(dbPath: string) = class
+    let monitor = new Object()
+    let dbPath = dbPath 
+    let mutable connection = null
+    do 
+        connection <- new SqliteConnection("Data Source=" + this.dbPath)
+        connection.Open()
 
-			// create the table (and ignore the exception, if the table already exists)
-		    var c = connection.CreateCommand();
-			c.CommandText = "CREATE TABLE [Items] (_id INTEGER PRIMARY KEY ASC, Name NTEXT, Notes NTEXT, Done INTEGER);";
-			try {c.ExecuteNonQuery();} catch {}
-		}
+        // create the table (and ignore the exception, if the table already exists)
+        let c = connection.CreateCommand()
+        c.CommandText <- "CREATE TABLE [Items] (_id INTEGER PRIMARY KEY ASC, Name NTEXT, Notes NTEXT, Done INTEGER);"
+        try    
+            c.ExecuteNonQuery() |> ignore
+        with
+            | _ -> () 
 
-		public void Dispose() {
-			connection.Close();
-		}
+    interface System.IDisposable with
+        member this.Dispose() = connection.Close()
+    end
 
-  		public static string DatabaseFilePath(string sqliteFilename) {
-			#if NETFX_CORE
-			var path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, sqliteFilename);
-			#else
+    static member DatabaseFilePath(sqliteFilename: string): string = begin
+        #if NETFX_CORE
+        let path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, sqliteFilename);
+        #else
 
-			#if SILVERLIGHT
-			// Windows Phone expects a local path, not absolute
-			var path = sqliteFilename;
-			#else
+        #if SILVERLIGHT
+        // Windows Phone expects a local path, not absolute
+        let path = sqliteFilename
+        #else
 
-			#if __ANDROID__
-			// Just use whatever directory SpecialFolder.Personal returns
-			string libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-			#else
-			// we need to put in /Library/ on iOS5.1 to meet Apple's iCloud terms
-			// (they don't want non-user-generated data in Documents)
-			string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal); // Documents folder
-			string libraryPath = Path.Combine(documentsPath, "..", "Library"); // Library folder
-			#endif
-			var path = Path.Combine(libraryPath, sqliteFilename);
-			#endif
+        #if __ANDROID__
+        // Just use whatever directory SpecialFolder.Personal returns
+        let libraryPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
+        #else
+        // we need to put in /Library/ on iOS5.1 to meet Apple's iCloud terms
+        // (they don't want non-user-generated data in Documents)
+        let documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) // Documents folder
+        let libraryPath = Path.Combine(documentsPath, "..", "Library") // Library folder
+        #endif
 
-			#endif
-			return path;	
-		}
-			
-		/// <summary>Convert from DataReader to Task object</summary>
-		private static Task FromReader(SqliteDataReader r) {
-			var t = new Task();
-			t.ID = Convert.ToInt32(r ["_id"]);
-			t.Name = r ["Name"].ToString();
-			t.Notes = r ["Notes"].ToString();
-			t.Done = Convert.ToInt32(r ["Done"]) == 1 ? true : false;
-			return t;
-		}
+        let path = Path.Combine(libraryPath, sqliteFilename)
+        #endif
 
-		public List<Task> GetTasks() {
-			var tl = new List<Task>();
+        #endif
+        path
+    end
 
-			lock(locker) {
-				using(var contents = connection.CreateCommand()) {
-					contents.CommandText = "SELECT [_id], [Name], [Notes], [Done] from [Items]";
-					var r = contents.ExecuteReader();
-					while(r.Read()) {
-						tl.Add(FromReader(r));
-					}
-				}
-			}
-			return tl;
-		}
+    static member private FromReader(r: SqliteDataReader): Task = begin
+        Task(
+            Convert.ToInt32(r ["_id"]),
+			r["Name"].ToString(),
+			r["Notes"].ToString(),
+            Convert.ToInt32(if (r["Done"]) = 1 then true else false)
+        )
+    end
 
-		public Task GetTask(int id) {
-			var t = new Task();
-			lock(locker) {
-				using(var command = connection.CreateCommand()) {
-					command.CommandText = "SELECT [_id], [Name], [Notes], [Done] from [Items] WHERE [_id] = ?";
-					command.Parameters.Add(new SqliteParameter(DbType.Int32) { Value = id });
-					var r = command.ExecuteReader();
-					while(r.Read()) {
-						t = FromReader(r);
-						break;
-					}
-				}
-			}
-			return t;
-		}
+    member this.GetTasks(): List<Task> = begin
+        let tl = List<Task>()
+        lock monitor (
+            using (connection.CreateCommand()) (fun c ->
+                c.CommandText <- "SELECT [_id], [Name], [Notes], [Done] from [Items]"
+                let r = c.ExecuteReader()
+                while (r.Read()) do
+                    tl.Add (FromReader(r))
+                done
+			)
+         )
+         tl
+    end
 
-		public int SaveTask(Task t) {
-			int r = 0;
-			lock(locker) {
-				if(t.ID != 0) {
-					using(var command = connection.CreateCommand()) {
-						command.CommandText = "UPDATE [Items] SET [Name] = ?, [Notes] = ?, [Done] = ? WHERE [_id] = ?;";
-						command.Parameters.Add(new SqliteParameter(DbType.String) { Value = t.Name });
-						command.Parameters.Add(new SqliteParameter(DbType.String) { Value = t.Notes });
-						command.Parameters.Add(new SqliteParameter(DbType.Int32) { Value = t.Done });
-						command.Parameters.Add(new SqliteParameter(DbType.Int32) { Value = t.ID });
-						r = command.ExecuteNonQuery();
-					}
-					return r;
-				} else {
-					using(var command = connection.CreateCommand()) {
-						command.CommandText = "INSERT INTO [Items] ([Name], [Notes], [Done]) VALUES (? ,?, ?)";
-						command.Parameters.Add(new SqliteParameter(DbType.String) { Value = t.Name });
-						command.Parameters.Add(new SqliteParameter(DbType.String) { Value = t.Notes });
-						command.Parameters.Add(new SqliteParameter(DbType.Int32) { Value = t.Done });
-						r = command.ExecuteNonQuery();
-					}
-					return r;
-				}
-			}
-		}
-
-		public int DeleteTask(int id) {
-			lock(locker) {
-				int r;
-				using(var command = connection.CreateCommand()) {
-					command.CommandText = "DELETE FROM [Items] WHERE [_id] = ?;";
-					command.Parameters.Add(new SqliteParameter(DbType.Int32) { Value = id});
-					r = command.ExecuteNonQuery();
-				}
-				return r;
-			}
-		}
-	}
-}
+    member this.GetTask(id: int): Task = begin
+        let mutable t: Task = null
+        lock monitor (
+            using (connection.CreateCommand()) (fun c ->
+                c.CommandText <- "SELECT [_id], [Name], [Notes], [Done] from [Items] WHERE [_id] = ?"
+                c.Parameters.Add(SqliteParameter(DbType.Int32), {Value = id})
+                let r = c.ExecuteReader()
+                r.Read; t <- FromReader(r)
+            )
+        )
+        t
+    end
+        
+    member SaveTask(t: Task): int = begin
+        let mutable r = 0
+        lock monitor (
+            if (t.Id != 0) then
+                using (connection.CreateCommand()) (fun c ->
+                    c.CommandText <- "UPDATE [Items] SET [Name] = ?, [Notes] = ?, [Done] = ? WHERE [_id] = ?"
+                    c.Parameters.Add(new SqliteParameter(DbType.String), {Value = t.Name})
+                    c.Parameters.Add(new SqliteParameter(DbType.String), {Value = t.Notes})
+                    c.Parameters.Add(new SqliteParameter(DbType.Int32), {Value = t.Done})
+                    c.Parameters.Add(new SqliteParameter(DbType.Int32), {Value = t.Id})
+                    r <- c.ExecuteNonQuery()
+                )
+            else
+                using (connection.CreateCommand()) (fun c -> 
+                    c.CommandText <- "INSERT INTO [Items] ([Name], [Notes], [Done]) VALUES (? ,?, ?)"
+                    c.Parameters.Add(new SqliteParameter(DbType.String), {Value = t.Name})
+                    c.Parameters.Add(new SqliteParameter(DbType.String), {Value = t.Notes})
+                    c.Parameters.Add(new SqliteParameter(DbType.Int32), {Value = t.Done})
+                    r <- command.ExecuteNonQuery()
+                )
+        )
+        r
+    end
+         
+    member DeleteTask(id: int): int = begin
+        let mutable r = 0
+        lock monitor (
+            using (connection.CreateCommand()) (fun c ->
+                c.CommandText <- "DELETE FROM [Items] WHERE [_id] = ?"
+                c.Parameters.Add(new SqliteParameter(DbType.Int32), {Value = id})
+                r <- c.ExecuteNonQuery()
+            )
+        )
+    end
+end

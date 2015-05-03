@@ -689,9 +689,8 @@ end
 // ---------------------------------------------------------------
 //         Parallel array programming
 // ---------------------------------------------------------------
-module ParallelArrayProgramming =
-
-    let oneBigArray = [| 0 .. 100000 |]
+module ParallelArrayProgramming = begin
+    let oneBigArray = [| 0 .. 10000000 |]
 
     // do some CPU intensive computation
     let rec computeSomeFunction x =
@@ -699,11 +698,19 @@ module ParallelArrayProgramming =
         else computeSomeFunction (x - 1) + computeSomeFunction (x - 2)
 
     // Do a parallel map over a large input array
-    let computeResults() = oneBigArray |> Array.Parallel.map (fun x -> computeSomeFunction (x % 20))
+    let computeResults() = oneBigArray |> Array.map (fun x -> computeSomeFunction (x % 20))
+    let computeResultsPar() = oneBigArray |> Array.Parallel.map (fun x -> computeSomeFunction (x % 20))
 
-    printfn "Parallel computation results: %A" (computeResults())
+    let stopWatch = System.Diagnostics.Stopwatch.StartNew()
+    printfn "Computation results: %A" (computeResults())
+    stopWatch.Stop()
+    printfn "Computation elapse: %d" stopWatch.ElapsedMilliseconds
 
- 
+    stopWatch.Restart()
+    printfn "Parallel computation results: %A" (computeResultsPar())
+    stopWatch.Stop()
+    printfn "Parallel computation ellapse: %d" stopWatch.ElapsedMilliseconds
+ end
 
 // ---------------------------------------------------------------
 //         Using events

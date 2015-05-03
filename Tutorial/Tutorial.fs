@@ -578,30 +578,42 @@ end
 // ---------------------------------------------------------------
 //         Option types
 // ---------------------------------------------------------------
-module OptionTypes =
+module OptionTypes = begin
     /// Option values are any kind of value tagged with either 'Some' or 'None'.
     /// They are used extensively in F# code to represent the cases where many other
     /// languages would use null references.
-
-    type Customer = { zipCode : decimal option }
+    type Customer = { 
+        name: string
+        zipCode: decimal option 
+    }
 
     /// Abstract class that computes the shipping zone for the customer's zip code,
     /// given implementations for the 'GetState' and 'GetShippingZone' abstract methods.
-
     [<AbstractClass>]
-
-    type ShippingCalculator =
-
-        abstract GetState : decimal -> string option
-
-        abstract GetShippingZone : string -> int
+    type ShippingCalculator() = class
+        abstract member GetState: decimal -> string option
+        abstract member GetShippingZone: string -> int
 
         /// Return the shipping zone corresponding to the customer's ZIP code
         /// Customer may not yet have a ZIP code or the ZIP code may be invalid
-        member this.CustomerShippingZone(customer : Customer) =
-
+        member this.CustomerShippingZone(customer: Customer) = begin
             customer.zipCode |> Option.bind this.GetState |> Option.map this.GetShippingZone
+        end
+    end
 
+    type MyShippingCalculator() = class
+        inherit ShippingCalculator()
+        override this.GetState(zipCode: decimal): string option = begin
+            Some("NY")
+        end
+        override this.GetShippingZone (state: string): int = begin
+            11111
+        end
+    end
+
+    let calc = new MyShippingCalculator()
+    printfn "%O -> %d" (calc.GetState 0.0m) (calc.GetShippingZone "")
+end
  
 // ---------------------------------------------------------------
 //         Pattern matching

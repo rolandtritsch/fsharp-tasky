@@ -319,19 +319,21 @@ end
 //         Implementing interfaces
 // ---------------------------------------------------------------
 
-/// Type that implements IDisposable
+module ImplementingInterfaces = begin
+    /// Type that implements IDisposable
+    type ReadFile() = class
+        let file = new System.IO.StreamReader("/etc/hosts")
+        member this.ReadLine() = file.ReadLine()
 
-type ReadFile() =
+        // this class's implementation of IDisposable members
+        interface System.IDisposable with   
+            member this.Dispose() = file.Close()
+        end
+    end
 
-    let file = new System.IO.StreamReader("readme.txt")
-
-    member this.ReadLine() = file.ReadLine()
-
-    // this class's implementation of IDisposable members
-    interface System.IDisposable with   
-
-        member this.Dispose() = file.Close()
-
+    let readme = new ReadFile()
+    printfn "First line: >%s<" (readme.ReadLine())
+end
 
 // ---------------------------------------------------------------
 //         Arrays

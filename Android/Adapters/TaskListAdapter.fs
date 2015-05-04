@@ -1,58 +1,45 @@
-using System.Collections.Generic;
+namespace Tasky.Android.Adapters
 
-using Android.App;
-using Android.Widget;
-using Android.Views;
+open System.Collections.Generic
 
-using Tasky.Core;
+open Android.App
+open Android.Widget
+open Android.Views
 
-namespace Tasky.Android.Adapters {
-	/// <summary>
-	/// Adapter that presents Tasks in a row-view
-	/// </summary>
-	public class TaskListAdapter : BaseAdapter<Task> {
-		Activity context = null;
-		IList<Task> tasks = new List<Task>();
-		
-		public TaskListAdapter(Activity context, IList<Task> tasks) : base () {
-			this.context = context;
-			this.tasks = tasks;
-		}
-		
-		public override Task this[int index] {
-			get { return tasks[index]; }
-		}
-		
-		public override long GetItemId(int position) {
-			return position;
-		}
-		
-		public override int Count {
-			get { return tasks.Count; }
-		}
-		
-		public override View GetView(int position, View convertView, ViewGroup parent) {
-			// Get our object for position
-			var item = tasks[position];			
+open Tasky.Core
 
-			//Try to reuse convertView if it's not  null, otherwise inflate it from our item layout
-			// gives us some performance gains by not always inflating a new view
-			// will sound familiar to MonoTouch developers with UITableViewCell.DequeueReusableCell()
-			var view = (convertView ?? context.LayoutInflater.Inflate(
-					global::Android.Resource.Layout.TaskListItem, 
-					parent, 
-					false)) as LinearLayout;
+type TaskListAdapter(context: Activity, tasks: List<Task>) = class
+    inherit BaseAdapter<Task>()
 
-			// Find references to each subview in the list item's view
-			var txtName = view.FindViewById<TextView>(global::Android.Resource.Id.NameText);
-			var txtDescription = view.FindViewById<TextView>(global::Android.Resource.Id.NotesText);
+    override this.GetItemId(position: int): int64 = begin
+        (int64) position
+    end
 
-			//Assign item's values to the various subviews
-			txtName.SetText(item.Name, TextView.BufferType.Normal);
-			txtDescription.SetText(item.Notes, TextView.BufferType.Normal);
+    override this.Count: int = begin
+        tasks.Count
+    end
 
-			//Finally return the view
-			return view;
-		}
-	}
-}
+    override this.GetView(position: int, convertView: View, parent: ViewGroup): View = begin 
+        let item = tasks.Item(position)
+        let view = if (convertView != null) then
+                       convertView
+                   else
+                       context.LayoutInflater.Inflate(
+                           global::Android.Resource.Layout.TaskListItem, 
+                           parent, 
+                           false
+                       )
+                   |?> LinearLayout
+
+        // Find references to each subview in the list item's view
+        let txtName = view.FindViewById<TextView>(global::Android.Resource.Id.NameText)
+        let txtDescription = view.FindViewById<TextView>(global::Android.Resource.Id.NotesText)
+
+        // Assign item's values to the various subviews
+        txtName.SetText(item.Name, TextView.BufferType.Normal)
+        txtDescription.SetText(item.Note, TextView.BufferType.Normal)
+
+        //Finally return the view
+        view
+    end
+end

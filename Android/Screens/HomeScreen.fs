@@ -1,61 +1,55 @@
-using System.Collections.Generic;
+namespace Tasky.Android.Screens
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Widget;
+open Android.App
+open Android.Content
+open Android.OS
+open Android.Widget
 
-using Tasky.Core;
-using Tasky.Android.Adapters;
+open Tasky.Core
+open Tasky.Android.Adapters
 
-namespace Tasky.Android.Screens {
-	/// <summary>
-	/// Main ListView screen displays a list of tasks, plus an [Add] button
-	/// </summary>
-	[Activity (Label = "Tasky", MainLauncher = true, Icon="@drawable/icon")]			
-	public class HomeScreen : Activity {
-		TaskListAdapter taskList;
-		IList<Task> tasks;
-		Button addTaskButton;
-		ListView taskListView;
-		
-		protected override void OnCreate(Bundle savedInstanceState) {
-			base.OnCreate(savedInstanceState);
+[Activity (Label = "Tasky", MainLauncher = true, Icon="@drawable/icon")]			
+type HomeScreen() = class
+    inherit Activity()
+    let mutable taskList: TaskListAdapter = null
+    let mutable tasks: List<Task> = null
+    let mutable addTaskButton: Button = null
+    let mutable taskListView: ListView = null
+        
+    override this.OnCreate(savedInstanceState: Bundle) = begin
+        base.OnCreate(savedInstanceState)
 
-			// set our layout to be the home screen
-			SetContentView(global::Android.Resource.Layout.HomeScreen);
+        // set our layout to be the home screen
+        SetContentView(global::Android.Resource.Layout.HomeScreen);
 
-			//Find our controls
-			taskListView = FindViewById<ListView>(global::Android.Resource.Id.TaskList);
-			addTaskButton = FindViewById<Button>(global::Android.Resource.Id.AddButton);
+        // find our controls
+        taskListView <- FindViewById<ListView>(global::Android.Resource.Id.TaskList);
+        addTaskButton <- FindViewById<Button>(global::Android.Resource.Id.AddButton);
 
-			// wire up add task button handler
-			if(addTaskButton != null) {
-				addTaskButton.Click += (sender, e) => {
-					StartActivity(typeof(TaskDetailsScreen));
-				};
-			}
-			
-			// wire up task click handler
-			if(taskListView != null) {
-				taskListView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
-					var taskDetails = new Intent (this, typeof (TaskDetailsScreen));
-					taskDetails.PutExtra ("TaskID", tasks[e.Position].ID);
-					StartActivity (taskDetails);
-				};
-			}
-		}
-		
-		protected override void OnResume() {
-			base.OnResume();
+        // wire up add task button handler
+        assert (addTaskButton != null)
+        addTaskButton.Click.Add (fun sender e -> begin
+            StartActivity(typeof(TaskDetailsScreen))
+        end)           
 
-			tasks = TaskManager.theDb.GetTasks();
-			
-			// create our adapter
-			taskList = new Adapters.TaskListAdapter(this, tasks);
+        // wire up task click handler
+        assert (taskListView != null)
+        taskListView.ItemClick.Add (fun (sender: object, e: AdapterView.ItemClickEventArgs e) -> begin
+            let taskDetails = new Intent (this, typeof (TaskDetailsScreen))
+            taskDetails.PutExtra("TaskID", tasks[e.Position].ID)
+            StartActivity(taskDetails)
+		end)
+    end
+        
+    override this.OnResume() = begin
+        base.OnResume()
 
-			//Hook up our adapter to our ListView
-			taskListView.Adapter = taskList;
-		}
-	}
-}
+        tasks <- TaskManager.theDb.GetTasks()
+
+        // create our adapter
+        taskList <- new Adapters.TaskListAdapter(this, tasks)
+
+        // hook up our adapter to our ListView
+        taskListView.Adapter <- taskList
+    end
+end

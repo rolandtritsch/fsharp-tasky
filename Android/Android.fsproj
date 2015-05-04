@@ -54,7 +54,6 @@
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.fs" />
     <Compile Include="Properties\AssemblyInfo.fs" />
-    <Compile Include="MainActivity.fs" />
     <Compile Include="..\Core\Task.fs">
       <Link>Core\Task.fs</Link>
     </Compile>

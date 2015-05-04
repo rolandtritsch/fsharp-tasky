@@ -38,6 +38,8 @@
     <ConsolePause>false</ConsolePause>
     <PlatformTarget>
     </PlatformTarget>
+    <DefineConstants>
+    </DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

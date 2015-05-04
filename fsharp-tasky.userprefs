@@ -1,4 +1,4 @@
-﻿<Properties StartupItem="Android/Android.fsproj">
+﻿<Properties StartupItem="Android.Test/Android.Test.fsproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.21-platform" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Android/Adapters/TaskListAdapter.fs">
     <Files>

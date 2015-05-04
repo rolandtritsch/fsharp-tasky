@@ -1,4 +1,4 @@
-namespace Tasky.Android.Adapters
+namespace Tasky.Adapters
 
 open System.Collections.Generic
 
@@ -6,6 +6,7 @@ open Android.App
 open Android.Widget
 open Android.Views
 
+open Tasky
 open Tasky.Core
 
 type TaskListAdapter(context: Activity, tasks: List<Task>) = class
@@ -17,6 +18,7 @@ type TaskListAdapter(context: Activity, tasks: List<Task>) = class
 
     override this.Count: int = begin
         tasks.Count
+
     end
 
     override this.GetView(position: int, convertView: View, parent: ViewGroup): View = begin 
@@ -25,19 +27,18 @@ type TaskListAdapter(context: Activity, tasks: List<Task>) = class
                        convertView
                    else
                        context.LayoutInflater.Inflate(
-                           global::Android.Resource.Layout.TaskListItem, 
+                           Resource_Layout.TaskListItem, 
                            parent, 
                            false
-                       )
-                   |?> LinearLayout
+                       ) :?> LinearLayout
 
         // Find references to each subview in the list item's view
-        let txtName = view.FindViewById<TextView>(global::Android.Resource.Id.NameText)
-        let txtDescription = view.FindViewById<TextView>(global::Android.Resource.Id.NotesText)
+        let txtName = view.FindViewById<TextView>(Resource_Id.NameText)
+        let txtDescription = view.FindViewById<TextView>(Resource_Id.NotesText)
 
         // Assign item's values to the various subviews
         txtName.SetText(item.Name, TextView.BufferType.Normal)
-        txtDescription.SetText(item.Note, TextView.BufferType.Normal)
+        txtDescription.SetText(item.Notes, TextView.BufferType.Normal)
 
         //Finally return the view
         view

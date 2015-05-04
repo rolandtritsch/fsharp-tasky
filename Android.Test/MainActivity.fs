@@ -10,13 +10,12 @@ open Android.Views
 open Android.Widget
 
 [<Activity (Label = "Android.Test", MainLauncher = true)>]
-type MainActivity () =
+type MainActivity () = class
     inherit Activity ()
 
-    let mutable count:int = 1
+    let mutable count: int = 1
 
-    override this.OnCreate (bundle) =
-
+    override this.OnCreate (bundle) = begin
         base.OnCreate (bundle)
 
         // Set our view from the "main" layout resource
@@ -28,4 +27,5 @@ type MainActivity () =
             button.Text <- sprintf "%d clicks!" count
             count <- count + 1
         )
-
+    end
+end

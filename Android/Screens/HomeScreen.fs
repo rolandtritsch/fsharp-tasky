@@ -1,14 +1,15 @@
-namespace Tasky.Android.Screens
+namespace Tasky.Screens
 
 open Android.App
 open Android.Content
 open Android.OS
 open Android.Widget
 
+open Tasky
 open Tasky.Core
-open Tasky.Android.Adapters
+open Tasky.Adapters
 
-[Activity (Label = "Tasky", MainLauncher = true, Icon="@drawable/icon")]			
+[Activity (Label = "Tasky", MainLauncher = true, Icon="@drawable/icon")]
 type HomeScreen() = class
     inherit Activity()
     let mutable taskList: TaskListAdapter = null
@@ -20,11 +21,11 @@ type HomeScreen() = class
         base.OnCreate(savedInstanceState)
 
         // set our layout to be the home screen
-        SetContentView(global::Android.Resource.Layout.HomeScreen);
+        base.SetContentView(Resource_Layout.HomeScreen)
 
         // find our controls
-        taskListView <- FindViewById<ListView>(global::Android.Resource.Id.TaskList);
-        addTaskButton <- FindViewById<Button>(global::Android.Resource.Id.AddButton);
+        taskListView <- base.FindViewById<ListView>(Resource_Id.TaskList)
+        addTaskButton <- base.FindViewById<Button>(Resource_Id.AddButton)
 
         // wire up add task button handler
         assert (addTaskButton != null)
@@ -38,7 +39,7 @@ type HomeScreen() = class
             let taskDetails = new Intent (this, typeof (TaskDetailsScreen))
             taskDetails.PutExtra("TaskID", tasks[e.Position].ID)
             StartActivity(taskDetails)
-		end)
+        end)
     end
         
     override this.OnResume() = begin

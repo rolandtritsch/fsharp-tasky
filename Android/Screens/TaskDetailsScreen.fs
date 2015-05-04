@@ -1,11 +1,10 @@
-namespace Tasky.Android.Screens
+namespace Tasky.Screens
 
 open Android.App
 open Android.OS
 open Android.Widget
 
 open Tasky.Core
-open Tasky.Android
 
 [Activity (Label = "TaskDetailsScreen")]
 type TaskDetailsScreen() = class
@@ -15,9 +14,9 @@ type TaskDetailsScreen() = class
     let mutable cancelDeleteButton: Button = null
     let mutable notesTextEdit: EditText = null
     let mutable nameTextEdit: EditText = null
-	let mutable saveButton: Button = null 
+    let mutable saveButton: Button = null 
 
-    override OnCreate(savedInstanceState: Bundle) = begin
+    override this.OnCreate(savedInstanceState: Bundle) = begin
         base.OnCreate(savedInstanceState)
 
         let taskID = Intent.GetIntExtra("TaskID", 0)
@@ -25,12 +24,12 @@ type TaskDetailsScreen() = class
 
         // set our layout to be the home screen
         SetContentView(global::Android.Resource.Layout.TaskDetails)
-        nameTextEdit <- FindViewById<EditText>(global::Android.Resource.Id.NameText)
-        notesTextEdit <- FindViewById<EditText>(global::Android.Resource.Id.NotesText)
-        saveButton <- FindViewById<Button>(global::Android.Resource.Id.SaveButton)
+        nameTextEdit <- FindViewById<EditText>(Resource_Id.NameText)
+        notesTextEdit <- FindViewById<EditText>(Resource_Id.NotesText)
+        saveButton <- FindViewById<Button>(Resource_Id.SaveButton)
 
         // find all our controls
-        cancelDeleteButton <- FindViewById<Button>(global::Android.Resource.Id.CancelDeleteButton)
+        cancelDeleteButton <- FindViewById<Button>(Resource_Id.CancelDeleteButton)
 
         // set the cancel delete based on whether or not it's an existing task
         cancelDeleteButton.Text <- if (task.ID = 0) then "Cancel" else "Delete"
@@ -52,6 +51,6 @@ type TaskDetailsScreen() = class
 
     let CancelDelete() = begin
         if(task.ID != 0) then TaskManager.theDb.DeleteTask(task.ID)
-		Finish()
+        Finish()
     end
 end

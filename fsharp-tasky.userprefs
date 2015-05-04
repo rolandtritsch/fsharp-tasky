@@ -1,6 +1,15 @@
 ﻿<Properties StartupItem="Android/Android.fsproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.21-platform" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Android/Resources/Resource.designer.fs">
+    <Files>
+      <File FileName="Android/Adapters/TaskListAdapter.fs" Line="29" Column="28" />
+      <File FileName="Android/Screens/HomeScreen.fs" Line="22" Column="48" />
+      <File FileName="Android/Screens/TaskDetailsScreen.fs" Line="1" Column="1" />
+      <File FileName="Android.Test/MainActivity.fs" Line="1" Column="1" />
+      <File FileName="Android.Test/Resources/Resource.designer.fs" Line="16" Column="21" />
+      <File FileName="Android/Resources/Resource.designer.fs" Line="16" Column="24" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

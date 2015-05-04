@@ -1,10 +1,6 @@
 ﻿<Properties StartupItem="Android.Test/Android.Test.fsproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.21-platform" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Android/Adapters/TaskListAdapter.fs">
-    <Files>
-      <File FileName="Android/Adapters/TaskListAdapter.fs" Line="15" Column="17" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

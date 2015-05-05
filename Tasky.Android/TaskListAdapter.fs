@@ -1,36 +1,32 @@
-namespace Tasky.Adapters
-
-open System.Collections.Generic
+namespace Tasky.Android
 
 open Android.App
 open Android.Widget
 open Android.Views
 
-open Tasky
 open Tasky.Core
 
 type TaskListAdapter(context: Activity, tasks: List<Task>) = class
     inherit BaseAdapter<Task>()
+
+    override this.get_Item(pos: int): Task = begin
+        tasks.Item(pos)
+    end
 
     override this.GetItemId(position: int): int64 = begin
         (int64) position
     end
 
     override this.Count: int = begin
-        tasks.Count
-
+        tasks.Length
     end
 
     override this.GetView(position: int, convertView: View, parent: ViewGroup): View = begin 
         let item = tasks.Item(position)
-        let view = if (convertView != null) then
+        let view = if (convertView <> null) then 
                        convertView
                    else
-                       context.LayoutInflater.Inflate(
-                           Resource_Layout.TaskListItem, 
-                           parent, 
-                           false
-                       ) :?> LinearLayout
+                       context.LayoutInflater.Inflate(Resource_Layout.TaskListItem, parent, false)
 
         // Find references to each subview in the list item's view
         let txtName = view.FindViewById<TextView>(Resource_Id.NameText)

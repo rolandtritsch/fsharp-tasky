@@ -7,9 +7,11 @@ open System.Data
 open Mono.Data.Sqlite
 
 type TaskDatabase(dbPath: string) = class
-    let monitor = new Object()
+    static let monitor = new Object()
+
     let dbPath = dbPath 
     let mutable connection = null
+
     do 
         connection <- new SqliteConnection("Data Source=" + dbPath)
         connection.Open()

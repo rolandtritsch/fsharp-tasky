@@ -4,18 +4,18 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{F2A71F9B-5D33-465A-A702-920D77279786}</ProjectTypeGuids>
-    <ProjectGuid>{013F0835-D1CA-4A0E-845A-C632ED558BF6}</ProjectGuid>
+    <ProjectGuid>{58D1FFA0-95B1-40D5-9CC5-9F42A247D97E}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Tasky</RootNamespace>
+    <RootNamespace>Tasky.Android</RootNamespace>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <AndroidResgenFile>Resources\Resource.designer.fs</AndroidResgenFile>
     <AndroidApplication>True</AndroidApplication>
-    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <AssemblyName>Android</AssemblyName>
+    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
+    <AssemblyName>Tasky.Android</AssemblyName>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.4</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,6 +52,7 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Resources\Resource.designer.fs" />
     <Compile Include="Properties\AssemblyInfo.fs" />
     <Compile Include="..\Core\Task.fs">
       <Link>Core\Task.fs</Link>
@@ -62,10 +63,9 @@
     <Compile Include="..\Core\TaskManager.fs">
       <Link>Core\TaskManager.fs</Link>
     </Compile>
-    <Compile Include="Adapters\TaskListAdapter.fs" />
-    <Compile Include="Screens\HomeScreen.fs" />
-    <Compile Include="Screens\TaskDetailsScreen.fs" />
-    <Compile Include="Resources\Resource.designer.fs" />
+    <Compile Include="HomeScreen.fs" />
+    <Compile Include="TaskListAdapter.fs" />
+    <Compile Include="TaskDetailsScreen.fs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -89,5 +89,6 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.FSharp.targets" />
   <ItemGroup>
     <Folder Include="Core\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
 </Project>

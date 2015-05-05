@@ -1,0 +1,56 @@
+﻿namespace Tasky.Android
+
+open System
+
+open Android.App
+open Android.Content
+open Android.OS
+open Android.Widget
+
+open Tasky.Core
+
+[<Activity (Label = "Tasky.Android", MainLauncher = true)>]
+type HomeScreen() = class
+    inherit Activity()
+
+    let mutable taskList: TaskListAdapter = new TaskListAdapter(null, List.Empty)
+    let mutable tasks: List<Task> = List<Task>.Empty
+    let mutable addTaskButton: Button = null
+    let mutable taskListView: ListView = null
+        
+    override this.OnCreate(savedInstanceState: Bundle) = begin
+        base.OnCreate(savedInstanceState)
+
+        // set our layout to be the home screen
+        base.SetContentView(Resource_Layout.HomeScreen)
+
+        // find our controls
+        taskListView <- base.FindViewById<ListView>(Resource_Id.TaskList)
+        addTaskButton <- base.FindViewById<Button>(Resource_Id.AddButton)
+
+        // wire up add task button handler
+        assert (addTaskButton <> null)
+        addTaskButton.Click.Add (fun e ->
+            let clazz: System.Type = typeof<TaskDetailsScreen>
+            this.StartActivity(clazz)
+        )           
+
+        // wire up task click handler
+        assert (taskListView <> null)
+        taskListView.ItemClick.Add (fun (e: AdapterView.ItemClickEventArgs) -> 
+            let ctx: Context = this.ApplicationContext
+            let clazz: System.Type = typeof<TaskDetailsScreen>
+            let taskDetails = new Intent(ctx, clazz)
+            taskDetails.PutExtra("TaskID", tasks.[e.Position].Id) |> ignore
+            this.StartActivity(taskDetails)
+        )
+    end
+        
+    override this.OnResume() = begin
+        base.OnResume()
+
+        tasks <- TaskManager.theDb.GetTasks()
+        taskList <- new TaskListAdapter(this, tasks)
+        taskListView.Adapter <- taskList
+    end
+end

@@ -1,13 +1,20 @@
 ﻿<Properties StartupItem="Tasky.Android/Tasky.Android.fsproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.21-platform" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Tasky.Android/HomeScreen.fs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.Nexus 4 (Lollipop)" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Core/TaskDatabaseADO.fs">
     <Files>
-      <File FileName="Tasky.Android/TaskListAdapter.fs" Line="38" Column="80" />
-      <File FileName="Tasky.Android/HomeScreen.fs" Line="37" Column="75" />
+      <File FileName="Tasky.Android/HomeScreen.fs" Line="13" Column="16" />
+      <File FileName="Core/TaskDatabaseADO.fs" Line="16" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabaseADO.fs" line="59" column="1" />
+      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabaseADO.fs" line="16" column="1" />
+      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabaseADO.fs" line="70" column="1" />
+      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabaseADO.fs" line="83" column="1" />
+      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabaseADO.fs" line="95" column="1" />
+      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabaseADO.fs" line="120" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

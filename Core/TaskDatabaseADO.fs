@@ -18,7 +18,7 @@ type TaskDatabase(dbPath: string) = class
 
         // create the table (and ignore the exception, if the table already exists)
         let c = connection.CreateCommand()
-        c.CommandText <- "CREATE TABLE [Items] (_id INTEGER PRIMARY KEY ASC, Name NTEXT, Notes NTEXT, Done INTEGER);"
+        c.CommandText <- "CREATE TABLE [Items] (_id INTEGER PRIMARY KEY ASC, Name NTEXT, Notes NTEXT, Done INTEGER)"
         try    
             c.ExecuteNonQuery() |> ignore
         with

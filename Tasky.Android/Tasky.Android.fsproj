@@ -63,9 +63,9 @@
     <Compile Include="..\Core\TaskManager.fs">
       <Link>Core\TaskManager.fs</Link>
     </Compile>
-    <Compile Include="HomeScreen.fs" />
     <Compile Include="TaskListAdapter.fs" />
     <Compile Include="TaskDetailsScreen.fs" />
+    <Compile Include="HomeScreen.fs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

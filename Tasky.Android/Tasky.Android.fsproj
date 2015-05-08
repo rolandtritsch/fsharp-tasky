@@ -57,15 +57,12 @@
     <Compile Include="..\Core\Task.fs">
       <Link>Core\Task.fs</Link>
     </Compile>
-    <Compile Include="..\Core\TaskDatabaseADO.fs">
-      <Link>Core\TaskDatabaseADO.fs</Link>
+    <Compile Include="Source\TaskListAdapter.fs" />
+    <Compile Include="Source\TaskDetailsScreen.fs" />
+    <Compile Include="Source\HomeScreen.fs" />
+    <Compile Include="..\Core\TaskDatabase.fs">
+      <Link>Core\TaskDatabase.fs</Link>
     </Compile>
-    <Compile Include="..\Core\TaskManager.fs">
-      <Link>Core\TaskManager.fs</Link>
-    </Compile>
-    <Compile Include="TaskListAdapter.fs" />
-    <Compile Include="TaskDetailsScreen.fs" />
-    <Compile Include="HomeScreen.fs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -90,5 +87,6 @@
   <ItemGroup>
     <Folder Include="Core\" />
     <Folder Include="Resources\" />
+    <Folder Include="Source\" />
   </ItemGroup>
 </Project>

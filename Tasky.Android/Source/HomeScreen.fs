@@ -15,6 +15,7 @@ type HomeScreen() = class
 
     let mutable taskList: TaskListAdapter = new TaskListAdapter(null, List.Empty)
     let mutable tasks: List<Task> = List<Task>.Empty
+    let mutable deleteDbButton: Button = null
     let mutable addTaskButton: Button = null
     let mutable taskListView: ListView = null
         
@@ -26,7 +27,18 @@ type HomeScreen() = class
 
         // find our controls
         taskListView <- base.FindViewById<ListView>(Resource_Id.TaskList)
+        deleteDbButton <- base.FindViewById<Button>(Resource_Id.DeleteDbButton)
         addTaskButton <- base.FindViewById<Button>(Resource_Id.AddButton)
+
+        // wire up add task button handler
+        assert (deleteDbButton <> null)
+        deleteDbButton.Click.Add (fun e ->
+            this.ApplicationContext.DeleteDatabase(TaskDatabase.DbName) |> ignore
+
+            tasks <- TaskDatabase.GetTasks()
+            taskList <- new TaskListAdapter(this, tasks)
+            taskListView.Adapter <- taskList
+        )           
 
         // wire up add task button handler
         assert (addTaskButton <> null)
@@ -49,7 +61,7 @@ type HomeScreen() = class
     override this.OnResume() = begin
         base.OnResume()
 
-        tasks <- TaskManager.theDb.GetTasks()
+        tasks <- TaskDatabase.GetTasks()
         taskList <- new TaskListAdapter(this, tasks)
         taskListView.Adapter <- taskList
     end

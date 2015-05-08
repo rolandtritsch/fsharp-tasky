@@ -23,10 +23,10 @@ namespace Tasky.Android
     #nowarn "51" // address-of operator can occur in the code
     #nowarn "1183" // unused 'this' reference
     
-    exception ReturnExceptiond5fc12323dce434eba77e297337ef87f of obj
-    exception ReturnNoneExceptiond5fc12323dce434eba77e297337ef87f
+    exception ReturnExceptionf6e5d63e56cd430e91f9a16070607b9d of obj
+    exception ReturnNoneExceptionf6e5d63e56cd430e91f9a16070607b9d
     [<AutoOpen>]
-    module FuncConvertFinalOverloadd5fc12323dce434eba77e297337ef87f =
+    module FuncConvertFinalOverloadf6e5d63e56cd430e91f9a16070607b9d =
       // This extension member adds to the FuncConvert type and is the last resort member in the method overloading rules. 
       type global.Microsoft.FSharp.Core.FuncConvert with
           /// A utility function to convert function values from tupled to curried form
@@ -65,35 +65,38 @@ namespace Tasky.Android
         
         (* partial *)Resource_Id () =
             static do Android.Runtime.ResourceIdManager.UpdateIdValues()
-            // aapt resource value: 0x7f050000
-            static member AddButton = 2131034112
-            
-            // aapt resource value: 0x7f050008
-            static member CancelDeleteButton = 2131034120
-            
-            // aapt resource value: 0x7f050003
-            static member NameLabel = 2131034115
-            
-            // aapt resource value: 0x7f050004
-            static member NameText = 2131034116
-            
-            // aapt resource value: 0x7f050005
-            static member NotesLabel = 2131034117
-            
-            // aapt resource value: 0x7f050006
-            static member NotesText = 2131034118
-            
-            // aapt resource value: 0x7f050007
-            static member SaveButton = 2131034119
-            
-            // aapt resource value: 0x7f050002
-            static member TaskDetailsHeader = 2131034114
-            
             // aapt resource value: 0x7f050001
-            static member TaskList = 2131034113
+            static member AddButton = 2131034113
             
             // aapt resource value: 0x7f050009
-            static member lstItemTask = 2131034121
+            static member CancelDeleteButton = 2131034121
+            
+            // aapt resource value: 0x7f050000
+            static member DeleteDbButton = 2131034112
+            
+            // aapt resource value: 0x7f050004
+            static member NameLabel = 2131034116
+            
+            // aapt resource value: 0x7f050005
+            static member NameText = 2131034117
+            
+            // aapt resource value: 0x7f050006
+            static member NotesLabel = 2131034118
+            
+            // aapt resource value: 0x7f050007
+            static member NotesText = 2131034119
+            
+            // aapt resource value: 0x7f050008
+            static member SaveButton = 2131034120
+            
+            // aapt resource value: 0x7f050003
+            static member TaskDetailsHeader = 2131034115
+            
+            // aapt resource value: 0x7f050002
+            static member TaskList = 2131034114
+            
+            // aapt resource value: 0x7f05000a
+            static member lstItemTask = 2131034122
             (* Member of type 'CodeTypeConstructor' is not supported by the CodeDOM provider and was omitted *)
 
 

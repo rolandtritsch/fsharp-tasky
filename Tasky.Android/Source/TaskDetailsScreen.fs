@@ -19,12 +19,12 @@ type TaskDetailsScreen() = class
     member private this.Save() = begin
         task.Name <- nameTextEdit.Text
         task.Notes <- notesTextEdit.Text
-        TaskManager.theDb.SaveTask(task) |> ignore
+        TaskDatabase.SaveTask(task) |> ignore
         base.Finish()
     end
 
     member private this.CancelDelete() = begin
-        if(task.Id <> 0) then TaskManager.theDb.DeleteTask(task.Id) |> ignore
+        if(task.Id <> 0) then TaskDatabase.DeleteTask(task.Id) |> ignore
         base.Finish()
     end
 
@@ -32,7 +32,7 @@ type TaskDetailsScreen() = class
         base.OnCreate(savedInstanceState)
 
         let taskID = base.Intent.GetIntExtra("TaskID", 0)
-        if(taskID > 0) then task <- TaskManager.theDb.GetTask(taskID)
+        if(taskID > 0) then task <- TaskDatabase.GetTask(taskID)
 
         // set our layout to be the home screen
         base.SetContentView(Resource_Layout.TaskDetails)

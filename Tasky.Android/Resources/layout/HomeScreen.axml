@@ -5,6 +5,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     <Button
+        android:id="@+id/DeleteDbButton"
+        android:text="Delete Database"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    <Button
         android:id="@+id/AddButton"
         android:text="Add Task"
         android:layout_width="fill_parent"

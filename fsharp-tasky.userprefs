@@ -1,19 +1,19 @@
 ﻿<Properties StartupItem="Tasky.Android/Tasky.Android.fsproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.Nexus 4 (Lollipop)" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Core/TaskDatabaseADO.fs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Tasky.Android/Source/HomeScreen.fs">
     <Files>
-      <File FileName="Tasky.Android/HomeScreen.fs" Line="13" Column="16" />
-      <File FileName="Core/TaskDatabaseADO.fs" Line="16" Column="1" />
+      <File FileName="Tasky.Android/Source/TaskDetailsScreen.fs" Line="22" Column="9" />
+      <File FileName="Core/TaskDatabase.fs" Line="10" Column="25" />
+      <File FileName="Tasky.Android/Source/HomeScreen.fs" Line="63" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabaseADO.fs" line="59" column="1" />
-      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabaseADO.fs" line="16" column="1" />
-      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabaseADO.fs" line="70" column="1" />
-      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabaseADO.fs" line="83" column="1" />
-      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabaseADO.fs" line="95" column="1" />
-      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabaseADO.fs" line="120" column="1" />
+      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabaseADO.fs" line="72" column="1" />
+      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabaseADO.fs" line="90" column="1" />
+      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabaseADO.fs" line="108" column="1" />
+      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabaseADO.fs" line="138" column="1" />
+      <Breakpoint file="/Development/Work/fsharp-tasky/Tasky.Android/Source/HomeScreen.fs" line="36" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

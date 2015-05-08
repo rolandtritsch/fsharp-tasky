@@ -2,8 +2,9 @@ namespace Tasky.Core
 
 open System
 
-type Task(id: int, name: string, notes: string, ddone: bool) = class
-    member this.Id = id
+[<Sealed>]
+type internal Task(id: int, name: string, notes: string, ddone: bool) = class
+    member val Id = id with get
     member val Name = name with get, set
     member val Notes = notes with get, set
     member val Done = ddone with get, set

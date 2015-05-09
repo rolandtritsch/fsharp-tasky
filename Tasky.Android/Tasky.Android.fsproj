@@ -54,12 +54,12 @@
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.fs" />
     <Compile Include="Properties\AssemblyInfo.fs" />
-    <Compile Include="..\Core\Task.fs">
-      <Link>Core\Task.fs</Link>
-    </Compile>
     <Compile Include="Source\TaskListAdapter.fs" />
     <Compile Include="Source\TaskDetailsScreen.fs" />
     <Compile Include="Source\HomeScreen.fs" />
+    <Compile Include="..\Core\Task.fs">
+      <Link>Core\Task.fs</Link>
+    </Compile>
     <Compile Include="..\Core\TaskDatabase.fs">
       <Link>Core\TaskDatabase.fs</Link>
     </Compile>
@@ -85,8 +85,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.FSharp.targets" />
   <ItemGroup>
-    <Folder Include="Core\" />
     <Folder Include="Resources\" />
     <Folder Include="Source\" />
+    <Folder Include="Core\" />
   </ItemGroup>
 </Project>

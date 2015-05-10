@@ -23,10 +23,10 @@ namespace Tasky.Android
     #nowarn "51" // address-of operator can occur in the code
     #nowarn "1183" // unused 'this' reference
     
-    exception ReturnException51b34fb9f3fd4396b9bb57238cefd6e1 of obj
-    exception ReturnNoneException51b34fb9f3fd4396b9bb57238cefd6e1
+    exception ReturnException7985b9a918b343f5abe7a0a6181a9e90 of obj
+    exception ReturnNoneException7985b9a918b343f5abe7a0a6181a9e90
     [<AutoOpen>]
-    module FuncConvertFinalOverload51b34fb9f3fd4396b9bb57238cefd6e1 =
+    module FuncConvertFinalOverload7985b9a918b343f5abe7a0a6181a9e90 =
       // This extension member adds to the FuncConvert type and is the last resort member in the method overloading rules. 
       type global.Microsoft.FSharp.Core.FuncConvert with
           /// A utility function to convert function values from tupled to curried form
@@ -121,13 +121,19 @@ namespace Tasky.Android
         
         (* partial *)Resource_String () =
             static do Android.Runtime.ResourceIdManager.UpdateIdValues()
+            // aapt resource value: 0x7f040003
+            static member ApplicationName = 2130968579
+            
+            // aapt resource value: 0x7f040002
+            static member Hello = 2130968578
+            
             // aapt resource value: 0x7f040001
             static member app_name = 2130968577
             
             // aapt resource value: 0x7f040000
             static member hello = 2130968576
             
-            // aapt resource value: 0x7f040002
-            static member library_name = 2130968578
+            // aapt resource value: 0x7f040004
+            static member library_name = 2130968580
             (* Member of type 'CodeTypeConstructor' is not supported by the CodeDOM provider and was omitted *)
 

@@ -1,10 +1,9 @@
 ﻿<Properties StartupItem="Tasky.Android/Tasky.Android.fsproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.Nexus 4 (Lollipop)" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Tasky.Android/Source/HomeScreen.fs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Test.Android/MainActivity.fs">
     <Files>
-      <File FileName="Tasky.Android/Source/TaskDetailsScreen.fs" Line="22" Column="9" />
-      <File FileName="Core/TaskDatabase.fs" Line="10" Column="25" />
-      <File FileName="Tasky.Android/Source/HomeScreen.fs" Line="63" Column="1" />
+      <File FileName="Test.Android/MainActivity.fs" Line="21" Column="13" />
+      <File FileName="Test.Android/EmptyClass.fs" Line="10" Column="17" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

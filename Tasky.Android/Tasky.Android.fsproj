@@ -12,10 +12,10 @@
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <AndroidResgenFile>Resources\Resource.designer.fs</AndroidResgenFile>
     <AndroidApplication>True</AndroidApplication>
-    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
+    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <AssemblyName>Tasky.Android</AssemblyName>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-    <TargetFrameworkVersion>v4.4</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,21 +48,13 @@
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core" />
     <Reference Include="Mono.Android" />
-    <Reference Include="Mono.Data.Sqlite" />
-    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.fs" />
     <Compile Include="Properties\AssemblyInfo.fs" />
-    <Compile Include="Source\TaskListAdapter.fs" />
     <Compile Include="Source\TaskDetailsScreen.fs" />
+    <Compile Include="Source\TaskListAdapter.fs" />
     <Compile Include="Source\HomeScreen.fs" />
-    <Compile Include="..\Core\Task.fs">
-      <Link>Core\Task.fs</Link>
-    </Compile>
-    <Compile Include="..\Core\TaskDatabase.fs">
-      <Link>Core\TaskDatabase.fs</Link>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -87,6 +79,11 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Source\" />
-    <Folder Include="Core\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tasky.Android.Core\Tasky.Android.Core.fsproj">
+      <Project>{39B720A3-85B9-47DC-9D66-FB0738B2A1F4}</Project>
+      <Name>Tasky.Android.Core</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

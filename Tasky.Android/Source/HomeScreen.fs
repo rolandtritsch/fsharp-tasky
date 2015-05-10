@@ -9,12 +9,13 @@ open Android.Widget
 
 open Tasky.Core
 
+[<Sealed>]
 [<Activity (Label = "Tasky.Android", MainLauncher = true)>]
 type HomeScreen() = class
     inherit Activity()
 
-    let mutable taskList: TaskListAdapter = new TaskListAdapter(null, List.Empty)
-    let mutable tasks: List<Task> = List<Task>.Empty
+    let mutable taskList = new TaskListAdapter(null, List.Empty)
+    let mutable tasks = List<Task>.Empty
     let mutable deleteDbButton: Button = null
     let mutable addTaskButton: Button = null
     let mutable taskListView: ListView = null

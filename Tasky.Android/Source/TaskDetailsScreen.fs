@@ -6,8 +6,9 @@ open Android.Widget
 
 open Tasky.Core
 
+[<Sealed>]
 [<Activity (Label = "Tasky.Android.TaskDetailsScreen")>]
-type TaskDetailsScreen() = class
+type public TaskDetailsScreen() = class
     inherit Activity()
 
     let mutable task = new Task()

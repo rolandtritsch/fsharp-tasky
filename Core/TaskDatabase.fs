@@ -7,7 +7,8 @@ open System.Data
 open Mono.Data.Sqlite
 
 [<Sealed>]
-type internal TaskDatabase private() = class
+[<AbstractClass>]
+type TaskDatabase private() = class
     static let monitor = new Object()
 
     static let dbPath(dbName) = begin
@@ -63,7 +64,7 @@ type internal TaskDatabase private() = class
 
     static member val DbName = dbPath("TaskDatabase.db3") with get
 
-    static member internal GetTasks(): List<Task> = begin
+    static member GetTasks(): List<Task> = begin
         let connection = new SqliteConnection("Data Source=" + TaskDatabase.DbName)
         connection.Open()
 
@@ -81,7 +82,7 @@ type internal TaskDatabase private() = class
         tasks
     end
 
-    static member internal GetTask(id: int): Task = begin
+    static member GetTask(id: int): Task = begin
         let connection = new SqliteConnection("Data Source=" + TaskDatabase.DbName)
         connection.Open()
 
@@ -100,7 +101,7 @@ type internal TaskDatabase private() = class
         task
     end
         
-    static member internal SaveTask(t: Task): int = begin
+    static member SaveTask(t: Task): int = begin
         let connection = new SqliteConnection("Data Source=" + TaskDatabase.DbName)
         connection.Open()
 
@@ -129,12 +130,12 @@ type internal TaskDatabase private() = class
         r
     end
          
-    static member internal DeleteTask(id: int): int = begin
+    static member DeleteTask(id: int): int = begin
         let connection = new SqliteConnection("Data Source=" + TaskDatabase.DbName)
         connection.Open()
 
         let r = lock monitor (
-            using (connection.CreateCommand()) (fun c ->
+            using (connection.CreateCommand()) (fun c -> 
                 c.CommandText <- "DELETE FROM [Items] WHERE [_id] = ?"
                 c.Parameters.Add(SqliteParameter(DbType.Int32, id)) |> ignore
                 let r = c.ExecuteNonQuery()

@@ -4,18 +4,16 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{F2A71F9B-5D33-465A-A702-920D77279786}</ProjectTypeGuids>
-    <ProjectGuid>{A3925585-6808-44B0-92B0-3D8D18765741}</ProjectGuid>
+    <ProjectGuid>{39B720A3-85B9-47DC-9D66-FB0738B2A1F4}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Tasky.Android.Test</RootNamespace>
+    <RootNamespace>Tasky.Android.Core</RootNamespace>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <AndroidResgenFile>Resources\Resource.designer.fs</AndroidResgenFile>
-    <AndroidApplication>True</AndroidApplication>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <AssemblyName>Tasky.Android.Test</AssemblyName>
+    <AssemblyName>Tasky.Android.Core</AssemblyName>
     <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
-    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,32 +46,23 @@
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core" />
     <Reference Include="Mono.Android" />
-    <Reference Include="Xamarin.Android.NUnitLite" />
+    <Reference Include="System.Data" />
+    <Reference Include="Mono.Data.Sqlite" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainActivity.fs" />
-    <Compile Include="TestsSample.fs" />
     <Compile Include="Resources\Resource.designer.fs" />
-    <Compile Include="Properties\AssemblyInfo.fs" />
     <Compile Include="..\Core\Task.fs">
       <Link>Core\Task.fs</Link>
     </Compile>
-    <Compile Include="..\Core\TaskDatabaseADO.fs">
-      <Link>Core\TaskDatabaseADO.fs</Link>
-    </Compile>
-    <Compile Include="..\Core\TaskManager.fs">
-      <Link>Core\TaskManager.fs</Link>
+    <Compile Include="..\Core\TaskDatabase.fs">
+      <Link>Core\TaskDatabase.fs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
-    <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\values\Strings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.FSharp.targets" />
   <ItemGroup>

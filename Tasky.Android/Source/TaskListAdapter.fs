@@ -7,7 +7,7 @@ open Android.Views
 open Tasky.Core
 
 [<Sealed>]
-type internal TaskListAdapter(context: Activity, tasks: List<Task>) = class
+type public TaskListAdapter(context: Activity, tasks: List<Task>) = class
     inherit BaseAdapter<Task>()
 
     override this.get_Item(pos: int): Task = begin

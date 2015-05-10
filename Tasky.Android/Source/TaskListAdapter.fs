@@ -24,7 +24,7 @@ type public TaskListAdapter(context: Activity, tasks: List<Task>) = class
 
     override this.GetView(position: int, convertView: View, parent: ViewGroup): View = begin 
         let item = tasks.Item(position)
-        let view = if (convertView <> null) then 
+        let view = if(convertView <> null) then 
                        convertView
                    else
                        context.LayoutInflater.Inflate(Resource_Layout.TaskListItem, parent, false)

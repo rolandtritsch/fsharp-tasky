@@ -27,11 +27,11 @@ type HomeScreen() = class
         base.SetContentView(Resource_Layout.HomeScreen)
 
         // find our controls
-        taskListView <- base.FindViewById<ListView>(Resource_Id.TaskList)
         deleteDbButton <- base.FindViewById<Button>(Resource_Id.DeleteDbButton)
         addTaskButton <- base.FindViewById<Button>(Resource_Id.AddButton)
+        taskListView <- base.FindViewById<ListView>(Resource_Id.TaskList)
 
-        // wire up add task button handler
+        // wire up handlers
         assert (deleteDbButton <> null)
         deleteDbButton.Click.Add (fun e ->
             this.ApplicationContext.DeleteDatabase(TaskDatabase.DbName) |> ignore
@@ -41,20 +41,18 @@ type HomeScreen() = class
             taskListView.Adapter <- taskList
         )           
 
-        // wire up add task button handler
         assert (addTaskButton <> null)
         addTaskButton.Click.Add (fun e ->
             let clazz: System.Type = typeof<TaskDetailsScreen>
             this.StartActivity(clazz)
         )           
 
-        // wire up task click handler
         assert (taskListView <> null)
         taskListView.ItemClick.Add (fun (e: AdapterView.ItemClickEventArgs) -> 
             let ctx: Context = this.ApplicationContext
             let clazz: System.Type = typeof<TaskDetailsScreen>
             let taskDetails = new Intent(ctx, clazz)
-            taskDetails.PutExtra("TaskID", tasks.[e.Position].Id) |> ignore
+            taskDetails.PutExtra(Task.IdKey, tasks.[e.Position].Id) |> ignore
             this.StartActivity(taskDetails)
         )
     end

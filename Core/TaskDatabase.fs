@@ -68,16 +68,15 @@ type TaskDatabase private() = class
         let connection = new SqliteConnection("Data Source=" + TaskDatabase.DbName)
         connection.Open()
 
-        let tasks = lock monitor (
-            using (connection.CreateCommand()) (fun c ->
-                c.CommandText <- "SELECT [_id], [Name], [Notes], [Done] from [Items]"
-                let r = c.ExecuteReader()
-                let tasks = [
-                    while r.Read() do yield fromReader(r)
-                ]
-                (fun unit -> tasks)
-            )
-        )
+        let tasks = lock(monitor)(using (connection.CreateCommand()) (fun c ->
+            c.CommandText <- "SELECT [_id], [Name], [Notes], [Done] from [Items]"
+            let r = c.ExecuteReader()
+            let tasks = [
+                while r.Read() do yield fromReader(r)
+            ]
+            (fun unit -> tasks)
+        ))
+
         connection.Close()
         tasks
     end
@@ -86,16 +85,14 @@ type TaskDatabase private() = class
         let connection = new SqliteConnection("Data Source=" + TaskDatabase.DbName)
         connection.Open()
 
-        let task = lock monitor (
-            using (connection.CreateCommand()) (fun c -> 
-                c.CommandText <- "SELECT [_id], [Name], [Notes], [Done] from [Items] WHERE [_id] = ?"
-                c.Parameters.Add(SqliteParameter(DbType.Int32, id)) |> ignore
-                let r = c.ExecuteReader()
-                r.Read() |> ignore
-                let t = fromReader(r)
-                (fun unit -> t)
-            ) 
-        )
+        let task = lock(monitor)(using (connection.CreateCommand()) (fun c -> 
+            c.CommandText <- "SELECT [_id], [Name], [Notes], [Done] from [Items] WHERE [_id] = ?"
+            c.Parameters.Add(SqliteParameter(DbType.Int32, id)) |> ignore
+            let r = c.ExecuteReader()
+            r.Read() |> ignore
+            let t = fromReader(r)
+            (fun unit -> t)
+        ))
 
         connection.Close()
         task
@@ -105,27 +102,26 @@ type TaskDatabase private() = class
         let connection = new SqliteConnection("Data Source=" + TaskDatabase.DbName)
         connection.Open()
 
-        let r = lock monitor (
-            if (t.Id <> 0) then
-                using (connection.CreateCommand()) (fun c ->
+        let block() = begin
+            using (connection.CreateCommand()) (fun c ->
+                if (t.Id <> 0) then begin
                     c.CommandText <- "UPDATE [Items] SET [Name] = ?, [Notes] = ?, [Done] = ? WHERE [_id] = ?"
                     c.Parameters.Add(SqliteParameter(DbType.String, t.Name)) |> ignore
                     c.Parameters.Add(SqliteParameter(DbType.String, t.Notes)) |> ignore
                     c.Parameters.Add(SqliteParameter(DbType.Int32, t.Done)) |> ignore
                     c.Parameters.Add(SqliteParameter(DbType.Int32, t.Id)) |> ignore
-                    let r = c.ExecuteNonQuery()
-                    (fun unit -> r)
-                )
-            else
-                using (connection.CreateCommand()) (fun c -> 
+                end else begin
                     c.CommandText <- "INSERT INTO [Items] ([Name], [Notes], [Done]) VALUES (? ,?, ?)"
                     c.Parameters.Add(SqliteParameter(DbType.String, t.Name)) |> ignore
                     c.Parameters.Add(SqliteParameter(DbType.String, t.Notes)) |> ignore
                     c.Parameters.Add(SqliteParameter(DbType.Int32, t.Done)) |> ignore
-                    let r = c.ExecuteNonQuery()
-                    (fun unit -> r)
-                )
-        )
+                end
+
+                c.ExecuteNonQuery()
+            )
+        end
+
+        let r = lock(monitor)(block)
         connection.Close()
         r
     end
@@ -134,14 +130,13 @@ type TaskDatabase private() = class
         let connection = new SqliteConnection("Data Source=" + TaskDatabase.DbName)
         connection.Open()
 
-        let r = lock monitor (
-            using (connection.CreateCommand()) (fun c -> 
-                c.CommandText <- "DELETE FROM [Items] WHERE [_id] = ?"
-                c.Parameters.Add(SqliteParameter(DbType.Int32, id)) |> ignore
-                let r = c.ExecuteNonQuery()
-                (fun unit -> r)
-            )
-        )
+        let r = lock(monitor)(using (connection.CreateCommand()) (fun c -> 
+            c.CommandText <- "DELETE FROM [Items] WHERE [_id] = ?"
+            c.Parameters.Add(SqliteParameter(DbType.Int32, id)) |> ignore
+            let r = c.ExecuteNonQuery()
+            (fun unit -> r)
+        ))
+
         connection.Close()
         r
     end

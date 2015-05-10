@@ -32,10 +32,10 @@ type public TaskDetailsScreen() = class
     override this.OnCreate(savedInstanceState: Bundle) = begin
         base.OnCreate(savedInstanceState)
 
-        let taskID = base.Intent.GetIntExtra("TaskID", 0)
-        if(taskID > 0) then task <- TaskDatabase.GetTask(taskID)
+        let taskId = base.Intent.GetIntExtra(Task.IdKey, 0)
+        if(taskId > 0) then task <- TaskDatabase.GetTask(taskId)
 
-        // set our layout to be the home screen
+        // set our layout to be the task details screen
         base.SetContentView(Resource_Layout.TaskDetails)
         nameTextEdit <- base.FindViewById<EditText>(Resource_Id.NameText)
         notesTextEdit <- base.FindViewById<EditText>(Resource_Id.NotesText)
@@ -45,13 +45,13 @@ type public TaskDetailsScreen() = class
         cancelDeleteButton <- base.FindViewById<Button>(Resource_Id.CancelDeleteButton)
 
         // set the cancel delete based on whether or not it's an existing task
-        cancelDeleteButton.Text <- if (task.Id = 0) then "Cancel" else "Delete"
+        cancelDeleteButton.Text <- if(task.Id = 0) then "Cancel" else "Delete"
 
         nameTextEdit.Text <- task.Name
         notesTextEdit.Text <- task.Notes
 
         // button clicks 
-        cancelDeleteButton.Click.Add (fun (e: System.EventArgs) -> this.CancelDelete())
-        saveButton.Click.Add (fun (e: System.EventArgs) -> this.Save())
+        cancelDeleteButton.Click.Add(fun e -> this.CancelDelete())
+        saveButton.Click.Add(fun e -> this.Save())
     end
 end

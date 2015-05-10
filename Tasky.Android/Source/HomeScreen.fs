@@ -35,6 +35,7 @@ type HomeScreen() = class
         assert (deleteDbButton <> null)
         deleteDbButton.Click.Add (fun e ->
             this.ApplicationContext.DeleteDatabase(TaskDatabase.DbName) |> ignore
+            TaskDatabase.Reset()
 
             tasks <- TaskDatabase.GetTasks()
             taskList <- new TaskListAdapter(this, tasks)

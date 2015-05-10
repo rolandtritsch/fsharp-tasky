@@ -46,4 +46,8 @@ type TaskDatabase private() = class
         init()
         db.Delete<Task>(id)
     end
+
+    static member Reset() = begin
+        db <- null
+    end
 end

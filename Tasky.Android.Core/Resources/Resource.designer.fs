@@ -23,10 +23,10 @@ namespace Tasky.Android.Core
     #nowarn "51" // address-of operator can occur in the code
     #nowarn "1183" // unused 'this' reference
     
-    exception ReturnExceptionf5b0f15ed70a4369903ba8f43c5e31db of obj
-    exception ReturnNoneExceptionf5b0f15ed70a4369903ba8f43c5e31db
+    exception ReturnException4a558e45a72942a386c29cb517317b76 of obj
+    exception ReturnNoneException4a558e45a72942a386c29cb517317b76
     [<AutoOpen>]
-    module FuncConvertFinalOverloadf5b0f15ed70a4369903ba8f43c5e31db =
+    module FuncConvertFinalOverload4a558e45a72942a386c29cb517317b76 =
       // This extension member adds to the FuncConvert type and is the last resort member in the method overloading rules. 
       type global.Microsoft.FSharp.Core.FuncConvert with
           /// A utility function to convert function values from tupled to curried form
@@ -53,6 +53,14 @@ namespace Tasky.Android.Core
         
         (* partial *)Resource_String () =
             static do Android.Runtime.ResourceIdManager.UpdateIdValues()
+            // aapt resource value: 0x7f020002
+            [<Microsoft.FSharp.Core.DefaultValueAttribute(false)>]
+            static val mutable private ApplicationName:int
+            
+            // aapt resource value: 0x7f020001
+            [<Microsoft.FSharp.Core.DefaultValueAttribute(false)>]
+            static val mutable private Hello:int
+            
             // aapt resource value: 0x7f020000
             [<Microsoft.FSharp.Core.DefaultValueAttribute(false)>]
             static val mutable private library_name:int

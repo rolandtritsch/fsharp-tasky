@@ -47,7 +47,7 @@ type TaskDatabase private() = class
         )
     end
 
-    do begin
+    static let init() = begin
         let connection = new SqliteConnection("Data Source=" + TaskDatabase.DbName)
         connection.Open()
 
@@ -65,6 +65,8 @@ type TaskDatabase private() = class
     static member val DbName = dbPath("TaskDatabase.db3") with get
 
     static member GetTasks(): List<Task> = begin
+        init()
+
         let connection = new SqliteConnection("Data Source=" + TaskDatabase.DbName)
         connection.Open()
 
@@ -82,6 +84,8 @@ type TaskDatabase private() = class
     end
 
     static member GetTask(id: int): Task = begin
+        init()
+
         let connection = new SqliteConnection("Data Source=" + TaskDatabase.DbName)
         connection.Open()
 
@@ -99,6 +103,8 @@ type TaskDatabase private() = class
     end
         
     static member SaveTask(t: Task): int = begin
+        init()
+
         let connection = new SqliteConnection("Data Source=" + TaskDatabase.DbName)
         connection.Open()
 
@@ -127,6 +133,8 @@ type TaskDatabase private() = class
     end
          
     static member DeleteTask(id: int): int = begin
+        init()
+
         let connection = new SqliteConnection("Data Source=" + TaskDatabase.DbName)
         connection.Open()
 

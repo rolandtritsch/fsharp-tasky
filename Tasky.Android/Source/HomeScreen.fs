@@ -53,7 +53,9 @@ type HomeScreen() = class
             let ctx: Context = this.ApplicationContext
             let clazz: System.Type = typeof<TaskDetailsScreen>
             let taskDetails = new Intent(ctx, clazz)
-            taskDetails.PutExtra(Task.IdKey, tasks.[e.Position].Id) |> ignore
+            let pos = e.Position
+            let task = tasks.Item(pos)
+            taskDetails.PutExtra(Task.IdKey, task.Id) |> ignore
             this.StartActivity(taskDetails)
         )
     end

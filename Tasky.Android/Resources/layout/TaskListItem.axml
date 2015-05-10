@@ -10,13 +10,15 @@
         android:id="@+id/NameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:textSize="18dp"
-        android:width="200dp"
+        android:width="150dp"
         android:text="NameText" />
     <TextView
         android:id="@+id/NotesText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:textSize="18dp"
         android:text="NotesText" />
 </LinearLayout>

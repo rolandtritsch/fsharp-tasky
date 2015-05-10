@@ -25,7 +25,7 @@ type public TaskDetailsScreen() = class
     end
 
     member private this.CancelDelete() = begin
-        if(task.Id <> 0) then TaskDatabase.DeleteTask(task.Id) |> ignore
+        if(task.Id >= 0) then TaskDatabase.DeleteTask(task.Id) |> ignore
         base.Finish()
     end
 
@@ -38,19 +38,20 @@ type public TaskDetailsScreen() = class
         notesTextEdit <- base.FindViewById<EditText>(Resource_Id.NotesText)
         saveButton <- base.FindViewById<Button>(Resource_Id.SaveButton)
 
+        // set and display the task
+        let taskId = base.Intent.GetIntExtra(Task.IdKey, -1)
+        if(taskId >= 0) then task <- TaskDatabase.GetTask(taskId) else task <- new Task()
+        nameTextEdit.Text <- task.Name
+        notesTextEdit.Text <- task.Notes
+
         // find all our controls
         cancelDeleteButton <- base.FindViewById<Button>(Resource_Id.CancelDeleteButton)
 
         // set the cancel delete based on whether or not it's an existing task
-        cancelDeleteButton.Text <- if(task.Id = 0) then "Cancel" else "Delete"
+        cancelDeleteButton.Text <- if(task.Id >= 0) then "Delete" else "Cancel"
 
         // wire up the handlers
         cancelDeleteButton.Click.Add(fun e -> this.CancelDelete())
         saveButton.Click.Add(fun e -> this.Save())
-
-        let taskId = base.Intent.GetIntExtra(Task.IdKey, 0)
-        if(taskId > 0) then task <- TaskDatabase.GetTask(taskId) else task <- new Task()
-        nameTextEdit.Text <- task.Name
-        notesTextEdit.Text <- task.Notes
     end
 end

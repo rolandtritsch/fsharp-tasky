@@ -15,7 +15,7 @@ type public TaskListAdapter(context: Activity, tasks: List<Task>) = class
     end
 
     override this.GetItemId(position: int): int64 = begin
-        (int64) position
+        (int64)position
     end
 
     override this.Count: int = begin

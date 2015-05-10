@@ -39,7 +39,7 @@ type TaskDatabase private() = class
         
     static member SaveTask(t: Task): int = begin
         init()
-        db.Insert(t)
+        if(t.Id >= 0) then db.Update(t) else db.Insert(t)
     end
          
     static member DeleteTask(id: int): int = begin

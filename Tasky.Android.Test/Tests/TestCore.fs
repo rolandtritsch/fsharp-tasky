@@ -10,12 +10,12 @@ type TestCore() = class
     let theTask = Task(999, "Name", "Notes", false)
 
     [<SetUp>]
-    member this.Setup() = begin
-        MainActivity.GetAppCtx.DeleteDatabase(TaskDatabase.DbName)
+    member x.Setup() = begin
+        // MainActivity.GetAppCtx().DeleteDatabase(TaskDatabase.DbName)
     end
     
     [<TearDown>]
-    member this.Tear() = ()
+    member x.Tear() = ()
 
     [<Test>]
     member this.TestTask() = begin
@@ -39,7 +39,7 @@ type TestCore() = class
     member this.TestTaskDatabase() = begin
         let numberOfTasks = 10
         let tasks = [
-            for i in 1 .. numberOfTasks do yield Task(100 + i, "Name_" + i.ToString(), "Note_" + i.ToString(), false)
+            for i in 1 .. numberOfTasks do yield Task(-1, "Task_" + i.ToString(), "Note_" + i.ToString(), false)
         ]
 
         List.iter (fun t -> TaskDatabase.SaveTask(t) |> ignore) tasks
@@ -51,9 +51,9 @@ type TestCore() = class
         let secondTask = TaskDatabase.GetTask(secondTaskId)
         Assert.That(secondTask.Id = secondTaskId)
 
-        TaskDatabase.SaveTask(Task(999, "Task_999", "Notes_999", false)) |> ignore
+        TaskDatabase.SaveTask(Task(-1, "Task_999", "Notes_999", false)) |> ignore
         let allTasksPlusOne = TaskDatabase.GetTasks()
         Assert.That(allTasksPlusOne.Length = numberOfTasks + 1)
-        Assert.True(List.exists (fun (t: Task) -> t.Id = 999) allTasksPlusOne)
+        Assert.True(List.exists (fun (t: Task) -> t.Name = "Task_999") allTasksPlusOne)
     end
 end

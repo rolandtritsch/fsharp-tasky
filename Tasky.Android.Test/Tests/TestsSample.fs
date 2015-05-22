@@ -4,7 +4,7 @@ open System
 open NUnit.Framework
 
 [<TestFixture>]
-type TestsSample = class    
+type TestsSample() = class    
     [<SetUp>]
     member x.Setup() = ()
     

@@ -1,32 +1,14 @@
-﻿<Properties StartupItem="Tasky.Android/Tasky.Android.fsproj">
+﻿<Properties StartupItem="Tasky.Android.Test/Tasky.Android.Test.fsproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.Nexus 4 (Lollipop)" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Core/TaskDatabase.fs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Tasky.Android.Test/MainActivity.fs">
     <Files>
-      <File FileName="Core/TaskDatabase.fs" Line="12" Column="1" />
+      <File FileName="Tasky.Android.Test/MainActivity.fs" Line="13" Column="28" />
+      <File FileName="Tasky.Android.Test/TestsSample.fs" Line="15" Column="21" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="fsharp-tasky" expanded="True">
-            <Node name="Tasky.Android" expanded="True">
-              <Node name="Source" expanded="True" />
-            </Node>
-            <Node name="Tasky.Android.Core" expanded="True" selected="True">
-              <Node name="ComponentReferenceFolder" expanded="True" />
-              <Node name="Core" expanded="True" />
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabase.fs" line="28" column="1" />
-      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabase.fs" line="36" column="1" />
-      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabase.fs" line="41" column="1" />
-      <Breakpoint file="/Development/Work/fsharp-tasky/Core/TaskDatabase.fs" line="46" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Tasky.Android AndroidDesignerPreferredDevice="Nexus 4" />
 </Properties>

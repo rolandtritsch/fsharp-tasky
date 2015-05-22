@@ -18,6 +18,8 @@ Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Tasky.Android", "Tasky.Andr
 EndProject
 Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Tasky.Android.Core", "Tasky.Android.Core\Tasky.Android.Core.fsproj", "{39B720A3-85B9-47DC-9D66-FB0738B2A1F4}"
 EndProject
+Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Tasky.Android.Test", "Tasky.Android.Test\Tasky.Android.Test.fsproj", "{4AB4561D-7348-4303-AC29-7EB40DCEBB60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{39B720A3-85B9-47DC-9D66-FB0738B2A1F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39B720A3-85B9-47DC-9D66-FB0738B2A1F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39B720A3-85B9-47DC-9D66-FB0738B2A1F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AB4561D-7348-4303-AC29-7EB40DCEBB60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AB4561D-7348-4303-AC29-7EB40DCEBB60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AB4561D-7348-4303-AC29-7EB40DCEBB60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AB4561D-7348-4303-AC29-7EB40DCEBB60}.Release|Any CPU.Build.0 = Release|Any CPU
 		{58D1FFA0-95B1-40D5-9CC5-9F42A247D97E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{58D1FFA0-95B1-40D5-9CC5-9F42A247D97E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58D1FFA0-95B1-40D5-9CC5-9F42A247D97E}.Release|Any CPU.ActiveCfg = Release|Any CPU

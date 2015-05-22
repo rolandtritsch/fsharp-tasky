@@ -54,7 +54,6 @@
     <Compile Include="Resources\Resource.designer.fs" />
     <Compile Include="Properties\AssemblyInfo.fs" />
     <Compile Include="Tests\MainActivity.fs" />
-    <Compile Include="Tests\TestsSample.fs" />
     <Compile Include="Tests\TestCore.fs" />
   </ItemGroup>
   <ItemGroup>

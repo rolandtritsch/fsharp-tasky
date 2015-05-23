@@ -7,7 +7,7 @@ open Tasky.Core
 
 [<TestFixture>]
 type TestCore() = class
-    let theTask = Task(999, "Name", "Notes", false)
+    let theTask = Task(-1, "Task_999", "Notes_999", false)
 
     [<SetUp>]
     member x.Setup() = begin
@@ -45,15 +45,15 @@ type TestCore() = class
         List.iter (fun t -> TaskDatabase.SaveTask(t) |> ignore) tasks
 
         let allTasks = TaskDatabase.GetTasks()
-        Assert.That(allTasks.Length = numberOfTasks)
+        Assert.AreEqual(allTasks.Length, numberOfTasks, "GetTasks failed")
 
         let secondTaskId = 2
         let secondTask = TaskDatabase.GetTask(secondTaskId)
-        Assert.That(secondTask.Id = secondTaskId)
+        Assert.AreEqual(secondTask.Id, secondTaskId, "GetTask failed")
 
-        TaskDatabase.SaveTask(Task(-1, "Task_999", "Notes_999", false)) |> ignore
+        TaskDatabase.SaveTask(theTask) |> ignore
         let allTasksPlusOne = TaskDatabase.GetTasks()
-        Assert.That(allTasksPlusOne.Length = numberOfTasks + 1)
-        Assert.True(List.exists (fun (t: Task) -> t.Name = "Task_999") allTasksPlusOne)
+        Assert.AreEqual(allTasksPlusOne.Length, numberOfTasks + 1, "SaveTask() failed")
+        Assert.True(List.exists (fun (t: Task) -> t.Name = "Task_999") allTasksPlusOne, "SaveTask() 2 failed")
     end
 end

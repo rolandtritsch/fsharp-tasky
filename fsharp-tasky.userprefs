@@ -1,9 +1,10 @@
 ﻿<Properties StartupItem="Tasky.Android.Test/Tasky.Android.Test.fsproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.Nexus 4 (Lollipop)" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Tasky.Android.Test/MainActivity.fs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Tasky.Android.Test/Tests/MainActivity.fs">
     <Files>
-      <File FileName="Tasky.Android.Test/MainActivity.fs" Line="13" Column="28" />
-      <File FileName="Tasky.Android.Test/TestsSample.fs" Line="15" Column="21" />
+      <File FileName="Tasky.Android.Test/Tests/TestCore.fs" Line="14" Column="12" />
+      <File FileName="Tasky.Android.Test/Tests/MainActivity.fs" Line="34" Column="45" />
+      <File FileName="Core/TaskDatabase.fs" Line="53" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

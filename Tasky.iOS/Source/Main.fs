@@ -1,9 +1,11 @@
-﻿namespace Test
+﻿namespace Tasky.iOS
 
 open UIKit
 
-module Main = 
+module Application = begin
     [<EntryPoint>]
-    let main args = 
+    let main args = begin
         UIApplication.Main(args, null, "AppDelegate")
         0
+    end
+end

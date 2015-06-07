@@ -8,10 +8,10 @@ open Tasky.Core
 
 type TaskDialog(task: Task) = class
     [<Entry("task name")>]
-    member val Name = Task.name with get, set
+    member val Name = task.Name with get, set
 
     [<Entry("other task info")>]
-    member val Notes = Task.notes with get, set
+    member val Notes = task.Notes with get, set
 
     [<Section ("")>]
     [<OnTap ("SaveTask")>]

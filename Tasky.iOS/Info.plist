@@ -16,5 +16,7 @@
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>org.tritsch.ios.tasky</string>
+	<key>UIMainNibFile</key>
+	<string>LaunchScreen</string>
 </dict>
 </plist>

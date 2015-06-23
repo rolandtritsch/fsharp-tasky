@@ -1,6 +1,12 @@
 ﻿<Properties StartupItem="Tasky.iOS/Tasky.iOS.fsproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone4s.8.3" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Tasky.iOS/Source/HomeScreen.fs">
+    <Files>
+      <File FileName="Tasky.iOS/Source/HomeScreen.fs" Line="36" Column="31" />
+      <File FileName="Tasky.iOS/Source/TaskDialog.fs" Line="1" Column="1" />
+      <File FileName="Tasky.iOS/Source/AppDelegate.fs" Line="15" Column="36" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

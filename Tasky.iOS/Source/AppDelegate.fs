@@ -12,7 +12,7 @@ type AppDelegate() = class
     override val Window = null with get, set
 
     // This method is invoked when the application is ready to run.
-    override this.FinishedLaunching (app, options) = begin
+    override this.FinishedLaunching(app, options) = begin
         true
     end
 end
